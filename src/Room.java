@@ -1,6 +1,7 @@
 public class Room {
     private String roomName;
     private String description;
+    private boolean locked;
     private boolean hasVisited;
     private Room north;
     private Room south;
@@ -10,6 +11,7 @@ public class Room {
     public Room(String roomName, String description){
         this.roomName = roomName;
         this.description = description;
+        this.locked = false;
         hasVisited = false;
     }
 
@@ -48,6 +50,13 @@ public class Room {
 
     public String getDescription(){
         return description;
+    }
+
+    public boolean getLocked() {
+        return locked;
+    }
+    public void setLocked(boolean locked){
+        this.locked = locked;
     }
 
     public boolean getHasVisited() {
