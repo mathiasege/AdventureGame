@@ -1,6 +1,7 @@
 public class Room {
     private String roomName;
     private String description;
+    private boolean hasVisited;
     private Room north;
     private Room south;
     private Room east;
@@ -9,6 +10,7 @@ public class Room {
     public Room(String roomName, String description){
         this.roomName = roomName;
         this.description = description;
+        hasVisited = false;
     }
 
     // Laver getter og setter for alle.
@@ -46,5 +48,12 @@ public class Room {
 
     public String getDescription(){
         return description;
+    }
+
+    public boolean getHasVisited() {
+        return hasVisited;
+    }
+    public boolean setHasVisited(boolean hasVisited) {
+        return this.hasVisited = hasVisited;
     }
 }

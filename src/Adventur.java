@@ -1,26 +1,83 @@
 public class Adventur {
     private Room current;
 
-    public String move(String moveCommand){
+    public String checkLocations(){
         String result = "";
-        if(moveCommand.equals("north") && current.getNorth() != null) {
-            current = current.getNorth();
-            result = "You moved on to: " + current.getRoomName();
-        } else if(moveCommand.equals("south") && current.getSouth() != null) {
-            current = current.getSouth();
-            result = "You moved on to: " + current.getRoomName();
-        } else if(moveCommand.equals("east") && current.getEast() != null){
-            current = current.getEast();
-            result = "You moved on to: " + current.getRoomName();
-        } else if(moveCommand.equals("west") && current.getWest() != null){
-            current = current.getWest();
-            result = "You moved on to: " + current.getRoomName();
-        }
 
-        return result.isEmpty() ? "You cannot go that way" : result + ".";
+        if(current.getNorth() != null){
+            if(current.getNorth().getHasVisited() == false)
+                result = "You haven't visited north. " + current.getNorth().getRoomName();
+            else
+                result = "You have visited north: " + current.getNorth().getRoomName();
+        }
+        result += "\n";
+
+        if(current.getSouth() != null){
+            if(current.getSouth().getHasVisited() == false)
+                result += "You haven't visited south: " + current.getSouth().getRoomName();
+            else
+                result += "You have visited south: " + current.getSouth().getRoomName();
+        }
+        result += "\n";
+
+        if(current.getEast() != null){
+            if(current.getEast().getHasVisited() == false)
+                result += "You haven't visited east: " + current.getEast().getRoomName();
+            else
+                result += "You have visited east: " + current.getEast().getRoomName();
+        }
+        result += "\n";
+
+        if(current.getWest() != null){
+            if(current.getWest().getHasVisited() == false)
+                result += "You haven't visited west: " + current.getWest().getRoomName();
+            else
+                result += "You have visited west: " + current.getWest().getRoomName();
+        }
+        return result;
     }
 
-    public String getRoom(){
+    // Metoden for at bevæge sig rundt.
+    public String move(String moveCommand){
+        String result = "";
+
+        // sætter current til nyt rom og indhenter tekst på rom.
+        if(moveCommand.equals("north") && current.getNorth() != null) {
+            current = current.getNorth();
+            result = setRoomText(current);
+        } else if(moveCommand.equals("south") && current.getSouth() != null) {
+            current = current.getSouth();
+            result = setRoomText(current);
+        } else if(moveCommand.equals("east") && current.getEast() != null){
+            current = current.getEast();
+            result = setRoomText(current);
+        } else if(moveCommand.equals("west") && current.getWest() != null){
+            current = current.getWest();
+            result = setRoomText(current);
+        }
+
+        // Sætter variablen hasVisited.
+        setVisit(current);
+
+        //Kontrollere om result er tomt.
+        return result.isEmpty()
+                ? "You cannot go that way"
+                : result;
+    }
+    // sætter teksten udfra room.
+    private String setRoomText(Room room){
+        return room.getHasVisited() == false
+                ? "You moved on to: " + current.getRoomName() + "\n" + current.getDescription()
+                : current.getRoomName() + "\nBeen there done that.";
+    }
+    // sætter variablen visit for room.
+    private boolean setVisit(Room room){
+        return room.getHasVisited() == false
+                ? room.setHasVisited(true)
+                : room.getHasVisited();
+    }
+
+    public String getRoomName(){
         return current.getRoomName();
     }
 
@@ -28,34 +85,34 @@ public class Adventur {
         return current.getDescription();
     }
 
+    // Konfigurer spillet.
     public Adventur(){
-        current = new Room("Room 1",
-                "You're in room one");
-        Room room2 = new Room("Room 2", "You're in room 2");
-        Room room3 = new Room("Room 3", "You're in room 3");
-        Room room4 = new Room("Room 4", "You're in room 4");
-        Room room5 = new Room("Room 5", "You're in room 5");
-        Room room6 = new Room("Room 6", "You're in room 6");
-        Room room7 = new Room("Room 7", "You're in room 7");
-        Room room8 = new Room("Room 8", "You're in room 8");
-        Room room9 = new Room("Room 9", "You're in room 9");
+        Room room1 = new Room("Room 1", "You're at the intrance.");
+        Room room2 = new Room("Room 2", "You're in the mine.");
+        Room room3 = new Room("Room 3", "You're in the cell.");
+        Room room4 = new Room("Room 4", "You're in the hall.");
+        Room room5 = new Room("Room 5", "You're in the book room.");
+        Room room6 = new Room("Room 6", "You're in the bed room.");
+        Room room7 = new Room("Room 7", "You're in the living room.");
+        Room room8 = new Room("Room 8", "You're in the president suit.");
+        Room room9 = new Room("Room 9", "You're in the dragon room.");
 
-        current.setNorth(null);
-        current.setEast(room2);
-        current.setSouth(room4);
-        current.setWest(null);
+        room1.setNorth(null);
+        room1.setEast(room2);
+        room1.setSouth(room4);
+        room1.setWest(null);
 
         room2.setNorth(null);
         room2.setSouth(null);
         room2.setEast(room3);
-        room2.setWest(current);
+        room2.setWest(room1);
 
         room3.setNorth(null);
         room3.setSouth(room6);
         room3.setEast(null);
         room3.setWest(room2);
 
-        room4.setNorth(current);
+        room4.setNorth(room1);
         room4.setSouth(room7);
         room4.setEast(null);
         room4.setWest(null);
@@ -84,5 +141,9 @@ public class Adventur {
         room9.setSouth(null);
         room9.setEast(null);
         room9.setWest(room8);
+
+        // configurer det første rum.
+        current = room1;
+        current.setHasVisited(true);
     }
 }
