@@ -1,7 +1,32 @@
 public class Adventur {
     private Room current;
 
+    public String move(String moveCommand){
+        String result = "";
+        if(moveCommand.equals("north") && current.getNorth() != null) {
+            current = current.getNorth();
+            result = "You moved on to: " + current.getRoomName();
+        } else if(moveCommand.equals("south") && current.getSouth() != null) {
+            current = current.getSouth();
+            result = "You moved on to: " + current.getRoomName();
+        } else if(moveCommand.equals("east") && current.getEast() != null){
+            current = current.getEast();
+            result = "You moved on to: " + current.getRoomName();
+        } else if(moveCommand.equals("west") && current.getWest() != null){
+            current = current.getWest();
+            result = "You moved on to: " + current.getRoomName();
+        }
 
+        return result.isEmpty() ? "You cannot go that way" : result + ".";
+    }
+
+    public String getRoom(){
+        return current.getRoomName();
+    }
+
+    public String getDescription(){
+        return current.getDescription();
+    }
 
     public Adventur(){
         current = new Room("Room 1",
@@ -15,40 +40,49 @@ public class Adventur {
         Room room8 = new Room("Room 8", "You're in room 8");
         Room room9 = new Room("Room 9", "You're in room 9");
 
-        current.setRoomOne(room2);
-        current.setRoomTwo(room4);
-        current.setRoomThree(null);
+        current.setNorth(null);
+        current.setEast(room2);
+        current.setSouth(room4);
+        current.setWest(null);
 
-        room2.setRoomOne(current);
-        room2.setRoomTwo(room3);
-        room2.setRoomThree(null);
+        room2.setNorth(null);
+        room2.setSouth(null);
+        room2.setEast(room3);
+        room2.setWest(current);
 
-        room3.setRoomOne(room2);
-        room3.setRoomTwo(room6);
-        room3.setRoomThree(null);
+        room3.setNorth(null);
+        room3.setSouth(room6);
+        room3.setEast(null);
+        room3.setWest(room2);
 
-        room4.setRoomOne(current);
-        room4.setRoomTwo(room7);
-        room4.setRoomThree(null);
+        room4.setNorth(current);
+        room4.setSouth(room7);
+        room4.setEast(null);
+        room4.setWest(null);
 
-        room5.setRoomOne(room8);
-        room5.setRoomTwo(null);
-        room5.setRoomThree(null);
+        room5.setNorth(null);
+        room5.setSouth(room8);
+        room5.setEast(null);
+        room5.setWest(null);
 
-        room6.setRoomOne(room3);
-        room6.setRoomTwo(room9);
-        room6.setRoomThree(null);
+        room6.setNorth(room3);
+        room6.setSouth(room9);
+        room6.setEast(null);
+        room6.setWest(null);
 
-        room7.setRoomOne(room4);
-        room7.setRoomTwo(room8);
-        room7.setRoomThree(null);
+        room7.setNorth(room4);
+        room7.setSouth(null);
+        room7.setEast(room8);
+        room7.setWest(null);
 
-        room8.setRoomOne(room5);
-        room8.setRoomTwo(room7);
-        room8.setRoomThree(room9);
+        room8.setNorth(room5);
+        room8.setSouth(null);
+        room8.setEast(room9);
+        room8.setWest(room7);
 
-        room9.setRoomOne(room6);
-        room9.setRoomTwo(room8);
-        room9.setRoomThree(null);
+        room9.setNorth(room6);
+        room9.setSouth(null);
+        room9.setEast(null);
+        room9.setWest(room8);
     }
 }
