@@ -19,12 +19,11 @@ public class UserInterface {
             move = scan.nextLine().toLowerCase();
             switch (move){
                 case "north", "south", "east", "west" -> {
-                    if(adventur.checkLock(move))
+                    // Tjekker om det er muligt at gå igennem.
+                    if(adventur.checkLock(move) && adventur.getRoomName() != null)
                         System.out.println("The door is locked. Find another way");
-                    else{
-                        System.out.println(adventur.setLock(false));
+                    else
                         System.out.println(adventur.move(move));
-                    }
                 }
                 case "look" -> System.out.println(adventur.checkLocations());
                 case "exist" -> System.out.println("You will now exist game.");

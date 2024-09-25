@@ -16,7 +16,7 @@ public class Adventur {
     }
 
     // Sætter locked variablen
-    public String setLock(Boolean locked){
+    private String setLock(Boolean locked){
         // Før jeg sætter viablen, sætter jeg tekst udfra hvad den er nu.
         String result = current.getLocked()
                 ? "Unlocked the door"
@@ -75,16 +75,20 @@ public class Adventur {
         // sætter current til nyt rom og indhenter tekst på rom.
         if(moveCommand.equals("north") && current.getNorth() != null) {
             current = current.getNorth();
-            result = setRoomText(current);
+            // sætter lås og udskriver samt udskriver tekst
+            result = setLock(false) + " " + setRoomText(current);
         } else if(moveCommand.equals("south") && current.getSouth() != null) {
             current = current.getSouth();
-            result = setRoomText(current);
+            // sætter lås og udskriver samt udskriver tekst
+            result = setLock(false) + " " + setRoomText(current);
         } else if(moveCommand.equals("east") && current.getEast() != null){
             current = current.getEast();
-            result = setRoomText(current);
+            // sætter lås og udskriver samt udskriver tekst
+            result = setLock(false) + " " + setRoomText(current);
         } else if(moveCommand.equals("west") && current.getWest() != null){
             current = current.getWest();
-            result = setRoomText(current);
+            // sætter lås og udskriver samt udskriver tekst
+            result = setLock(false) + " " + setRoomText(current);
         }
 
         // Sætter variablen hasVisited.
