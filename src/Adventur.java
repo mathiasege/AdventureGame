@@ -106,10 +106,9 @@ public class Adventur {
                 : current.getRoomName() + "\nBeen there done that.";
     }
     // sætter variablen visit for room.
-    private boolean setVisit(Room room){
-        return room.getHasVisited() == false
-                ? room.setHasVisited(true)
-                : room.getHasVisited();
+    private void setVisit(Room room){
+        if(room.getHasVisited() == false)
+            room.setHasVisited(true);
     }
 
     public String getRoomName(){

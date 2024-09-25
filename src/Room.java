@@ -1,16 +1,21 @@
 public class Room {
     private String roomName;
     private String description;
-    private boolean locked;
-    private boolean hasVisited;
     private Room north;
     private Room south;
     private Room east;
     private Room west;
 
+    // Del 1 EKSTRA
+    private boolean locked;
+    private boolean hasVisited;
+
+
     public Room(String roomName, String description){
         this.roomName = roomName;
         this.description = description;
+
+        // del 1 EKSTRA
         this.locked = false;
         hasVisited = false;
     }
@@ -52,6 +57,7 @@ public class Room {
         return description;
     }
 
+    // ---------- DEL 1 EKSTRA ---------------------
     public boolean getLocked() {
         return locked;
     }
@@ -62,7 +68,7 @@ public class Room {
     public boolean getHasVisited() {
         return hasVisited;
     }
-    public boolean setHasVisited(boolean hasVisited) {
-        return this.hasVisited = hasVisited;
+    public void setHasVisited(boolean hasVisited) {
+        this.hasVisited = hasVisited;
     }
 }
