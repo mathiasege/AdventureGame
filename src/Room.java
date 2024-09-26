@@ -1,16 +1,14 @@
 public class Room {
-    private String roomName;
-    private String description;
+    private String roomName, description;
+    private Room north, south, east, west;
+
     private boolean locked;
     private boolean hasVisited;
-    private Room north;
-    private Room south;
-    private Room east;
-    private Room west;
 
     public Room(String roomName, String description){
         this.roomName = roomName;
         this.description = description;
+
         this.locked = false;
         hasVisited = false;
     }
