@@ -16,7 +16,7 @@ public class Room {
         this.description = description;
 
         // del 1 EKSTRA
-        this.locked = false;
+        locked = false;
         hasVisited = false;
     }
 

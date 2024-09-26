@@ -1,6 +1,8 @@
 public class Adventur {
     private Room current;
 
+
+
     // Tjekker om døren er låst.
     public boolean checkLock(String move){
         if(current.getRoomName().equals("Room 3")
@@ -14,7 +16,6 @@ public class Adventur {
 
         return false;
     }
-
     // Sætter locked variablen
     private String setLock(Boolean locked){
         // Før jeg sætter viablen, sætter jeg tekst udfra hvad den er nu.
@@ -26,7 +27,6 @@ public class Adventur {
 
         return result;
     }
-
     // Metoden for at se om du har været der før.
     public String checkLocations(){
         String result = "";
@@ -35,39 +35,38 @@ public class Adventur {
         if(current.getNorth() != null){
             // Tjekker om vi har været der før
             result = current.getNorth().getHasVisited() == false
-                 ? "You haven't visited north. " + current.getNorth().getRoomName()
-                 : "You have visited north: " + current.getNorth().getRoomName();
+                 ? "\tYou haven't visited north. " + current.getNorth().getRoomName() + "\n"
+                 : "\tYou have visited north: " + current.getNorth().getRoomName() + "\n";
         }
-        result += "\n";
+
 
         // Tjekker at rummet ikke er null
         if(current.getSouth() != null){
             // Tjekker om vi har været der før
             result += current.getSouth().getHasVisited() == false
-                 ? "You haven't visited south: " + current.getSouth().getRoomName()
-                 : "You have visited south: " + current.getSouth().getRoomName();
+                 ? "\tYou haven't visited south: " + current.getSouth().getRoomName() + "\n"
+                 : "\tYou have visited south: " + current.getSouth().getRoomName() + "\n";
         }
-        result += "\n";
+
 
         // Tjekker at rummet ikke er null
         if(current.getEast() != null){
             // Tjekker om vi har været der før
             result += current.getEast().getHasVisited() == false
-                 ? "You haven't visited east: " + current.getEast().getRoomName()
-                 : "You have visited east: " + current.getEast().getRoomName();
+                 ? "\tYou haven't visited east: " + current.getEast().getRoomName() + "\n"
+                 : "\tYou have visited east: " + current.getEast().getRoomName() + "\n";
         }
-        result += "\n";
+
 
         // Tjekker at rummet ikke er null
         if(current.getWest() != null){
             // Tjekker om vi har været der før
             result += current.getWest().getHasVisited() == false
-                ? "You haven't visited west: " + current.getWest().getRoomName()
-                : "You have visited west: " + current.getWest().getRoomName();
+                ? "\tYou haven't visited west: " + current.getWest().getRoomName() + "\n"
+                : "\tYou have visited west: " + current.getWest().getRoomName() + "\n";
         }
         return result;
     }
-
     // Metoden for at bevæge sig rundt.
     public String move(String moveCommand){
         String result = "";
@@ -108,13 +107,12 @@ public class Adventur {
     // sætter variablen visit for room.
     private void setVisit(Room room){
         if(room.getHasVisited() == false)
-            room.setHasVisited(true);
+            // Sætter til modsat
+            room.setHasVisited(!room.getHasVisited());
     }
-
     public String getRoomName(){
         return current.getRoomName();
     }
-
     public String getDescription(){
         return current.getDescription();
     }

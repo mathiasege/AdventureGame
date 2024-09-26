@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -8,14 +9,15 @@ public class UserInterface {
         String move = "";
 
         System.out.println("\tYou're in room: " + adventur.getRoomName());
-        System.out.println("\t"+adventur.getDescription());
+        System.out.println("\t"+ adventur.getDescription());
 
         while(!move.equals("exist")){
             System.out.println("\t-----------------------------------------------------");
-            System.out.println("\t(1) Move command Type in: North, East, West, South.");
-            System.out.println("\t(2) Looking in room type in: look.");
-            System.out.println("\t(3) Need help Type in: help.");
-            System.out.println("\t(4) If you want to quiet game. Type in: exist.");
+            System.out.println("Type in:");
+            System.out.println("\t(1) Move command: North or East or West or South");
+            System.out.println("\t(2) Look around the room: look");
+            System.out.println("\t(3) Need help: help");
+            System.out.println("\t(4) quiet game: exist");
 
             move = scan.nextLine().toLowerCase();
             switch (move){
@@ -26,7 +28,7 @@ public class UserInterface {
                     else
                         System.out.println(adventur.move(move));
                 }
-                case "look" -> System.out.println("\t" + adventur.checkLocations());
+                case "look" -> System.out.println(adventur.checkLocations());
                 case "exist" -> System.out.println("\tYou will now exist game.");
                 case "help" -> {
                     Scanner scan2 = new Scanner(System.in);
