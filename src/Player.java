@@ -9,36 +9,44 @@ public class Player {
         return currentRoom;
     }
 
+    public boolean getHasVisited(){
+        return currentRoom.getHasVisited();
+    }
+
     // Tjekker om døren er låst.
     public boolean checkLock(String input){
         if(currentRoom.getRoomName().equals("Room 3")
                 && input.equals("west")
+                // Tjekker for true
                 && currentRoom.getWest().getLocked())
-            return true;
+            return currentRoom.getWest().getLocked();
         if(currentRoom.getRoomName().equals("Room 7")
                 && input.equals("east")
+                // Tjekker for true.
                 && currentRoom.getEast().getLocked())
-            return true;
+            return currentRoom.getEast().getLocked();
 
-        return false;
+        // return false
+        return currentRoom.getLocked();
     }
 
     // Sætter locked variablen
-    public String setLock(Boolean locked){
-        // Før jeg sætter viablen, sætter jeg tekst udfra hvad den er nu.
+    public String setLock(){
+        // Før jeg sætter variablen, sætter jeg tekst udfra hvad den er nu.
         String result = currentRoom.getLocked()
                 ? "You unlocked the door."
                 : "The door is not locked.";
 
-        currentRoom.setLocked(locked);
+        // hvis locked er true. Sæt til false.
+        if(currentRoom.getLocked())
+            currentRoom.setLocked(!currentRoom.getLocked());
 
         return result;
     }
 
     // sætter variablen visit for room.
     public void setVisit(Room currentRoom){
-        if(!currentRoom.getHasVisited())
-            currentRoom.setHasVisited(true);
+        currentRoom.setHasVisited(currentRoom.getHasVisited());
     }
 
     // Metoden for at bevæge sig rundt.

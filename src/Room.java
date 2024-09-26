@@ -2,6 +2,7 @@ public class Room {
     private String roomName, description;
     private Room north, south, east, west;
 
+    // del 2
     private boolean locked;
     private boolean hasVisited;
 
@@ -9,6 +10,7 @@ public class Room {
         this.roomName = roomName;
         this.description = description;
 
+        // del 2
         this.locked = false;
         hasVisited = false;
     }
@@ -60,7 +62,8 @@ public class Room {
     public boolean getHasVisited() {
         return hasVisited;
     }
-    public boolean setHasVisited(boolean hasVisited) {
-        return this.hasVisited = hasVisited;
+    public void setHasVisited(boolean hasVisited) {
+        // Sætter til modsat.
+        this.hasVisited = !hasVisited;
     }
 }
