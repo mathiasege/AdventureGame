@@ -15,10 +15,10 @@ public class UserInterface {
         while(!input.equals("exist")){
             System.out.println("\t-----------------------------------------------------");
             System.out.println("\t(1) Move command Type in: North, East, West, South.");
-            System.out.println("\t(2) Looking in room type in: look.");
+            System.out.println("\t(2) Look in current room type in: look.");
             System.out.println("\t(3) Need help Type in: help.");
             System.out.println("\t(4) Teleport Type in: xyzzy");
-            System.out.println("\t(5) If you want to quiet game. Type in: exist.");
+            System.out.println("\t(5) If you want to quit game. Type in: exist.");
 
             input = scan.nextLine().toLowerCase();
             switch (input){
