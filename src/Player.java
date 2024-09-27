@@ -61,6 +61,7 @@ public class Player {
 
     // Metoden for at bevæge sig rundt.
     public Room move(String moveCommand){
+        Room temp = currentRoom;
         // sætter current til nyt rom og indhenter tekst på rom.
         if(moveCommand.equals("north") && currentRoom.getNorth() != null) {
             currentRoom = currentRoom.getNorth();
@@ -70,11 +71,11 @@ public class Player {
             currentRoom = currentRoom.getEast();
         } else if(moveCommand.equals("west") && currentRoom.getWest() != null) {
             currentRoom = currentRoom.getWest();
-        }else{
-            return null;
         }
 
-        return currentRoom;
+        return currentRoom != temp
+                ? currentRoom
+                : null;
     }
 
     // Sætter locked variablen
