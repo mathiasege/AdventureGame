@@ -46,6 +46,9 @@ public class Adventur {
     }
 
     public String checkLocation(){
+        if(player.checkLocations().isEmpty()){
+            return "You're missing some rooms.";
+        }
         return player.checkLocations();
     }
 
