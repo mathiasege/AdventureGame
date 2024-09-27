@@ -73,7 +73,7 @@ public class Player {
             currentRoom = currentRoom.getWest();
         }
 
-        return currentRoom != temp
+        return !currentRoom.equals(temp)
                 ? currentRoom
                 : null;
     }
