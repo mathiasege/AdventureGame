@@ -8,7 +8,7 @@ public class UserInterface {
         Scanner scan = new Scanner(System.in);
         String input = "";
 
-        System.out.println("\tYou're in room: " + adventur.getPlayer().getCurrent().getRoomName());
+        System.out.println("\tYou're in room: " + adventur.getPlayer().getCurrent().getName());
         System.out.println("\t" + adventur.getPlayer().getCurrent().getDescription());
 
         // kør så længe der ikke er skrevet exist.
@@ -17,7 +17,8 @@ public class UserInterface {
             System.out.println("\t(1) Move command Type in: North, East, West, South.");
             System.out.println("\t(2) Looking in room type in: look.");
             System.out.println("\t(3) Need help Type in: help.");
-            System.out.println("\t(4) If you want to quiet game. Type in: exist.");
+            System.out.println("\t(4) Teleport Type in: xyzzy");
+            System.out.println("\t(5) If you want to quiet game. Type in: exist.");
 
             input = scan.nextLine().toLowerCase();
             switch (input){
@@ -29,6 +30,7 @@ public class UserInterface {
                         System.out.println(adventur.move(input));
                 }
                 case "look" -> System.out.println(adventur.checkLocation());
+                case "xyzzy" -> System.out.println(adventur.teleport());
                 case "exist" -> System.out.println("You will now exist game.");
                 case "help" -> {
                     Scanner scan2 = new Scanner(System.in);

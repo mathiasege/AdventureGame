@@ -1,8 +1,10 @@
 public class Player {
-    private Room currentRoom;
+    private Room currentRoom, lastRoom;
+    private boolean firstTeleport;
 
     public Player(Room currentRoom){
         this.currentRoom = currentRoom;
+        firstTeleport = false;
     }
 
     public Room getCurrent() {
@@ -13,14 +15,36 @@ public class Player {
         return currentRoom.getHasVisited();
     }
 
+    // funktionen for at teleport.
+    public Room teleport(){
+        // opretter en temp variabel og map.
+        Room temp;
+        Map map = new Map();
+
+        // hvis ikke man har teleporteret sig før.
+        if(!firstTeleport){
+            lastRoom = currentRoom;
+            currentRoom = map.getRoom();
+        }else{
+            temp = currentRoom;
+            currentRoom = lastRoom;
+            lastRoom = temp;
+        }
+
+        // set firstTeleport til true
+        firstTeleport = true;
+
+        return currentRoom;
+    }
+
     // Tjekker om døren er låst.
     public boolean checkLock(String input){
-        if(currentRoom.getRoomName().equals("Room 3")
+        if(currentRoom.getName().equals("Room 3")
                 && input.equals("west")
                 // Tjekker for true
                 && currentRoom.getWest().getLocked())
             return currentRoom.getWest().getLocked();
-        if(currentRoom.getRoomName().equals("Room 7")
+        if(currentRoom.getName().equals("Room 7")
                 && input.equals("east")
                 // Tjekker for true.
                 && currentRoom.getEast().getLocked())
@@ -28,20 +52,6 @@ public class Player {
 
         // return false
         return currentRoom.getLocked();
-    }
-
-    // Sætter locked variablen
-    public String setLock(){
-        // Før jeg sætter variablen, sætter jeg tekst udfra hvad den er nu.
-        String result = currentRoom.getLocked()
-                ? "You unlocked the door."
-                : "The door is not locked.";
-
-        // hvis locked er true. Sæt til false.
-        if(currentRoom.getLocked())
-            currentRoom.setLocked(!currentRoom.getLocked());
-
-        return result;
     }
 
     // sætter variablen visit for room.
@@ -60,12 +70,26 @@ public class Player {
             currentRoom = currentRoom.getEast();
         } else if(moveCommand.equals("west") && currentRoom.getWest() != null) {
             currentRoom = currentRoom.getWest();
-        }else {
+        }else{
             return null;
         }
+
         return currentRoom;
     }
 
+    // Sætter locked variablen
+    public String setLock(){
+        // Før jeg sætter variablen, sætter jeg tekst udfra hvad den er nu.
+        String result = currentRoom.getLocked()
+                ? "You unlocked the door."
+                : "The door is not locked.";
+
+        // hvis locked er true. Sæt til false.
+        if(currentRoom.getLocked())
+            currentRoom.setLocked(!currentRoom.getLocked());
+
+        return result;
+    }
 
     // Metoden for at se om du har været der før.
     public String checkLocations(){
@@ -75,8 +99,8 @@ public class Player {
         if(currentRoom.getNorth() != null){
             // Tjekker om vi har været der før
             result += !currentRoom.getNorth().getHasVisited()
-                    ? "You haven't visited north. " + currentRoom.getNorth().getRoomName()
-                    : "You have visited north: " + currentRoom.getNorth().getRoomName();
+                    ? "You haven't visited north. " + currentRoom.getNorth().getName()
+                    : "You have visited north: " + currentRoom.getNorth().getName();
         }
         result += "\n";
 
@@ -84,8 +108,8 @@ public class Player {
         if(currentRoom.getSouth() != null){
             // Tjekker om vi har været der før
             result += !currentRoom.getSouth().getHasVisited()
-                    ? "You haven't visited south: " + currentRoom.getSouth().getRoomName()
-                    : "You have visited south: " + currentRoom.getSouth().getRoomName();
+                    ? "You haven't visited south: " + currentRoom.getSouth().getName()
+                    : "You have visited south: " + currentRoom.getSouth().getName();
         }
         result += "\n";
 
@@ -93,8 +117,8 @@ public class Player {
         if(currentRoom.getEast() != null){
             // Tjekker om vi har været der før
             result += !currentRoom.getEast().getHasVisited()
-                    ? "You haven't visited east: " + currentRoom.getEast().getRoomName()
-                    : "You have visited east: " + currentRoom.getEast().getRoomName();
+                    ? "You haven't visited east: " + currentRoom.getEast().getName()
+                    : "You have visited east: " + currentRoom.getEast().getName();
         }
         result += "\n";
 
@@ -102,8 +126,8 @@ public class Player {
         if(currentRoom.getWest() != null){
             // Tjekker om vi har været der før
             result += !currentRoom.getWest().getHasVisited()
-                    ? "You haven't visited west: " + currentRoom.getWest().getRoomName()
-                    : "You have visited west: " + currentRoom.getWest().getRoomName();
+                    ? "You haven't visited west: " + currentRoom.getWest().getName()
+                    : "You have visited west: " + currentRoom.getWest().getName();
         }
         return result;
     }

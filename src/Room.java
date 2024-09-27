@@ -3,8 +3,7 @@ public class Room {
     private Room north, south, east, west;
 
     // del 2
-    private boolean locked;
-    private boolean hasVisited;
+    private boolean locked, hasVisited;
 
     public Room(String roomName, String description){
         this.roomName = roomName;
@@ -44,7 +43,7 @@ public class Room {
         return west;
     }
 
-    public String getRoomName() {
+    public String getName() {
         return roomName;
     }
 

@@ -2,10 +2,16 @@ public class Adventur {
     private Map map;
     private Player player;
 
+
     public Adventur(){
         // Istansiere mine variabler.
         map = new Map();
         player = new Player(map.getRoom());
+    }
+
+    // returnere navnet på det nye rum.
+    public String teleport(){
+        return player.teleport().getName();
     }
 
     // Metoden for at gå.
@@ -19,11 +25,10 @@ public class Adventur {
 
         room = player.move(input);
 
-        // Tjekker om room er tomt.
+        // Tjekker om room er tomt. Sætter string udfra det.
         String result = room != null
                 ? player.setLock() + " " + setRoomText(room)
                 : "You cannot go that way.";
-
 
         return result;
     }
@@ -31,8 +36,8 @@ public class Adventur {
     private String setRoomText(Room room){
         // Den sættes efter om man har været der.
         return !room.getHasVisited()
-                ? "You moved on to: " + room.getRoomName() + "\n" + room.getDescription()
-                : room.getRoomName() + "\nBeen there done that.";
+                ? "You moved on to: " + room.getName() + "\n" + room.getDescription()
+                : room.getName() + "\nBeen there done that.";
     }
 
 
