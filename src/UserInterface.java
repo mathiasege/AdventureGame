@@ -8,8 +8,8 @@ public class UserInterface {
         Scanner scan = new Scanner(System.in);
         String input = "";
 
-        System.out.println("\tYou're in room: " + adventur.getPlayer().getCurrent().getName());
-        System.out.println("\t" + adventur.getPlayer().getCurrent().getDescription());
+        System.out.println("\tYou're in room: " + adventur.getPlayer().getRoom().getName());
+        System.out.println("\t" + adventur.getPlayer().getRoom().getDescription());
 
         // kør så længe der ikke er skrevet exist.
         while(!input.equals("exist")){
@@ -24,12 +24,16 @@ public class UserInterface {
             switch (input){
                 case "north", "south", "east", "west" -> {
                     // Tjekker om det er muligt at gå igennem.
-                    if(adventur.checkLock(input) && adventur.getPlayer().getCurrent() != null)
+                    if(adventur.checkLock(input) && adventur.getPlayer().getRoom() != null)
                         System.out.println("The door is locked. Find another way");
-                    else
+                    else{
                         System.out.println(adventur.move(input));
+                    }
                 }
-                case "look" -> System.out.println(adventur.checkLocation());
+                case "look" -> {
+                    System.out.println("You're in room: " + adventur.getPlayer().getRoom().getName());
+                    System.out.println(adventur.checkLocation());
+                }
                 case "xyzzy" -> System.out.println(adventur.teleport());
                 case "exist" -> System.out.println("You will now exist game.");
                 case "help" -> {

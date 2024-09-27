@@ -2,16 +2,50 @@ public class Room {
     private String roomName, description;
     private Room north, south, east, west;
 
-    // del 2
+    // del 2. hasVisited er for selve rummet
     private boolean locked, hasVisited;
+
+    // Det er for rummene man kan besøge
+    private boolean northVisited, southVisited,eastVisited,westVisited;
 
     public Room(String roomName, String description){
         this.roomName = roomName;
         this.description = description;
 
-        // del 2
+        // del 2. hasVisited er for selve rummet
         this.locked = false;
         hasVisited = false;
+
+        // Det er for rummene man kan besøge
+        northVisited = false;
+        southVisited = false;
+        eastVisited = false;
+        westVisited = false;
+    }
+
+    public void setNorthVisited(boolean northVisited) {
+        this.northVisited = northVisited;
+    }
+    public boolean isNorthVisited() {
+        return northVisited;
+    }
+    public void setSouthVisited(boolean southVisited) {
+        this.southVisited = southVisited;
+    }
+    public boolean isSouthVisited() {
+        return southVisited;
+    }
+    public void setEastVisited(boolean eastVisited) {
+        this.eastVisited = eastVisited;
+    }
+    public boolean isEastVisited() {
+        return eastVisited;
+    }
+    public void setWestVisited(boolean westVisited) {
+        this.westVisited = westVisited;
+    }
+    public boolean isWestVisited() {
+        return westVisited;
     }
 
     // Laver getter og setter for alle.
@@ -58,11 +92,12 @@ public class Room {
         this.locked = locked;
     }
 
+    // Det er for selve rummet.
     public boolean getHasVisited() {
         return hasVisited;
     }
     public void setHasVisited(boolean hasVisited) {
         // Sætter til modsat.
-        this.hasVisited = !hasVisited;
+        this.hasVisited = hasVisited;
     }
 }

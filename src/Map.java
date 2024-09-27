@@ -1,12 +1,12 @@
 public class Map {
-    private Room room;
+    private Room board;
 
     public Map(){
         createMap();
     }
 
-    public Room getRoom(){
-        return room;
+    public Room getBoard(){
+        return board;
     }
 
     private void createMap(){
@@ -50,7 +50,7 @@ public class Map {
         room9.setWest(room8);
 
         // configurer det første rum.
-        room = room1;
-        room.setHasVisited(true);
+        board = room1;
+        board.setHasVisited(true);
     }
 }

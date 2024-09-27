@@ -8,12 +8,8 @@ public class Player {
         firstTeleport = false;
     }
 
-    public Room getCurrent() {
+    public Room getRoom() {
         return currentRoom;
-    }
-
-    public boolean getHasVisited() {
-        return currentRoom.getHasVisited();
     }
 
     // funktionen for at teleport.
@@ -25,7 +21,7 @@ public class Player {
         // hvis ikke man har teleporteret sig før.
         if (!firstTeleport) {
             lastRoom = currentRoom;
-            currentRoom = map.getRoom();
+            currentRoom = map.getBoard();
         } else {
             temp = currentRoom;
             currentRoom = lastRoom;
@@ -55,14 +51,14 @@ public class Player {
         return currentRoom.getLocked();
     }
 
-    // sætter variablen visit for room.
-    public void setVisit(Room currentRoom) {
-        currentRoom.setHasVisited(currentRoom.getHasVisited());
-    }
-
     // Metoden for at bevæge sig rundt.
     public Room move(String moveCommand) {
         Room temp = currentRoom;
+
+        // sætter hasVisted for rummet.
+        if(!currentRoom.getHasVisited())
+            currentRoom.setHasVisited(!currentRoom.getHasVisited());
+
         // sætter current til nyt rom og indhenter tekst på rom.
         if (moveCommand.equals("north") && currentRoom.getNorth() != null) {
             currentRoom = currentRoom.getNorth();
@@ -91,65 +87,5 @@ public class Player {
             currentRoom.setLocked(!currentRoom.getLocked());
 
         return result;
-    }
-
-    // Metoden sender result tilbage, når alle rum er blevet besøgt.
-    public String checkLocations() {
-        // opretter lokale variabler.
-        int count = 0, countTrue = 0;
-        String result = "";
-
-        // Tjekker at rummet ikke er null
-        if (currentRoom.getNorth() != null) {
-            // tæller hvis det ikke er null
-            count++;
-            // hvis det er blevet besøgt. Tæl sandt og tilføj tekst
-            if(currentRoom.getNorth().getHasVisited()){
-                countTrue++;
-                result += "You have visited north. " + currentRoom.getNorth().getName();
-            }
-            result += ".\n";
-        }
-
-        // Tjekker at rummet ikke er null
-        if (currentRoom.getSouth() != null) {
-            // tæller hvis det ikke er null
-            count++;
-            // hvis det er blevet besøgt. Tæl sandt og tilføj tekst
-            if(currentRoom.getSouth().getHasVisited()){
-                countTrue++;
-                result += "You have visited south. " + currentRoom.getSouth().getName();
-            }
-            result += ".\n";
-        }
-
-        // Tjekker at rummet ikke er null
-        if (currentRoom.getEast() != null) {
-            // tæller hvis det ikke er null
-            count++;
-            // hvis det er blevet besøgt. Tæl sandt og tilføj tekst
-            if(currentRoom.getEast().getHasVisited()){
-                countTrue++;
-                result += "You have visited east. " + currentRoom.getEast().getName();
-            }
-            result += ".\n";
-        }
-
-        // Tjekker at rummet ikke er null
-        if (currentRoom.getWest() != null) {
-            // tæller hvis det ikke er null
-            count++;
-            // hvis det er blevet besøgt. Tæl sandt og tilføj tekst
-           if(currentRoom.getWest().getHasVisited()){
-               countTrue++;
-               result += "You have visited west. " + currentRoom.getNorth().getName();
-           }
-            result += ".\n";
-        }
-
-        // result kommer kun tilbage hvis countTrue er = med count.
-        return countTrue == count
-                ? result + "\nAll rooms have been visited"
-                : "";
     }
 }
