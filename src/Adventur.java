@@ -89,28 +89,35 @@ public class Adventur {
     }
 
     // Del 2
+    // Gennemgår items i et rum
     public String checkForItem(){
         String temp = "";
+
+        // henter items.
         for(var item : player.getRoom().getItems()){
             temp += item.toString() + "\n";
         }
 
+        // returner ingenting, hvis temp er tom. ellers temp.
         return temp.isEmpty()
                 ? ""
                 : temp;
     }
 
-    public String takeItem(String input){
-        return player.takeItem(input)
-                ? "You took the item."
-                :  "Item doesn't exist.";
-    }
+    // Returnere en besked udfra en String fra player.checkItem.
     public String checkInventory(){
         return player.checkInventory().isEmpty()
                 ? "Inventory is empty."
                 : "Your inventory:\n" + player.checkInventory();
     }
 
+    // Returnere en besked udfra en bool fra player.takeItem.
+    public String takeItem(String input){
+        return player.takeItem(input)
+                ? "You took the item."
+                :  "Item doesn't exist.";
+    }
+    // Returnere en besked udfra en bool fra player.dropItem.
     public String dropItem(String input){
         return player.dropItem(input)
                 ? "You dropped the item."

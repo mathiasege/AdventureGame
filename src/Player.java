@@ -95,6 +95,7 @@ public class Player {
     }
 
     // Del 2
+    // Henter items i inventory.
     public String checkInventory(){
         String temp = "";
         for(Item item : inventory){
@@ -104,8 +105,10 @@ public class Player {
         return temp;
     }
 
+    // Returnere sandt eller falsk, hvis item eksistere.
     public boolean takeItem(String input){
         for(Item item : currentRoom.getItems()){
+            // Fjern fra rum og tilføje til inventory.
             if(item.getName().equals(input)){
                 inventory.add(item);
                 currentRoom.removeSpecificItem(item);
@@ -116,8 +119,10 @@ public class Player {
         return false;
     }
 
+    // Returnere sandt eller falsk, hvis item eksistere.
     public boolean dropItem(String input){
         for(Item item : inventory){
+            // Fjern fra player og tilføj til rum.
             if(item.getName().equals(input)){
                 inventory.remove(item);
                 currentRoom.addOneItem(item);

@@ -20,6 +20,8 @@ public class Map {
         Item keyToRoom2 = new Item("Room 2", "Key to unlock room 2");
         Item keyToRoom8 = new Item("Room 8", "Key to unlock room 8");
 
+        // tilføjer items til room.
+
         // items til room4
         ArrayList<Item> itemRoom4 = new ArrayList<>();
         itemRoom4.add(keyToRoom2);
