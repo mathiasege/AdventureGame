@@ -17,6 +17,7 @@ public class Player {
         return currentRoom;
     }
 
+
     // funktionen for at teleport.
     public Room teleport() {
         // opretter en temp variabel og map.
