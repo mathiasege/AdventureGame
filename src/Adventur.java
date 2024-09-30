@@ -72,7 +72,7 @@ public class Adventur {
             result += "You can go east.\n";
         }
         if(player.getRoom().getWest() != null){
-            result += "You can go north.\n";
+            result += "You can go north.";
         }
 
         // result kommer kun tilbage hvis alle er true.
@@ -113,14 +113,16 @@ public class Adventur {
 
     // Returnere en besked udfra en bool fra player.takeItem.
     public String takeItem(String input){
-        return player.takeItem(input)
-                ? "You took the item."
-                :  "Item doesn't exist.";
+        Item item = player.takeItem(input);
+        return item != null
+                ? "You took the item: " + item.toString()
+                :  "There is nothing like " + input + " to take around here";
     }
     // Returnere en besked udfra en bool fra player.dropItem.
     public String dropItem(String input){
-        return player.dropItem(input)
-                ? "You dropped the item."
-                : "Item doesn't exist.";
+        Item item = player.dropItem(input);
+        return item != null
+                ? "You dropped the item: " + item.toString()
+                : "You don't have anything like " + input + " in your inventory";
     }
 }

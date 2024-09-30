@@ -8,8 +8,9 @@ public class UserInterface {
         Scanner scan = new Scanner(System.in);
         String input = "";
 
-        System.out.println("\tYou're in room: " + adventur.getPlayer().getRoom().getName());
-        System.out.println("\t" + adventur.getPlayer().getRoom().getDescription());
+        System.out.println("You're in room: " + adventur.getPlayer().getRoom().getName());
+        System.out.println(adventur.getPlayer().getRoom().getDescription());
+        System.out.print(adventur.checkForItem());
 
         // kør så længe der ikke er skrevet exist.
         while(!input.equals("exist")){
@@ -29,17 +30,18 @@ public class UserInterface {
                 case "north", "south", "east", "west" -> {
                     // Tjekker om det er muligt at gå igennem.
                     if(adventur.checkLock(input) && adventur.getPlayer().getRoom() != null)
-                        System.out.println("The door is locked. Find another way");
+                        System.out.print("The door is locked. Find another way");
                     else{
                         System.out.println(adventur.move(input));
+                        System.out.print(adventur.checkForItem());
                     }
                 }
                 case "look" -> {
                     System.out.println("You're in room: " + adventur.getPlayer().getRoom().getName());
-                    System.out.println(adventur.checkForItem());
                     System.out.println(adventur.locationStatus());
+                    System.out.print(adventur.checkForItem());
                 }
-                case "inventory" -> System.out.println(adventur.checkInventory());
+                case "inventory" -> System.out.print(adventur.checkInventory());
                 case "take" -> {
                     System.out.println("Which item do you want to take?");
                     String item = new Scanner(System.in).nextLine();
@@ -48,19 +50,19 @@ public class UserInterface {
                 case "drop" -> {
                     System.out.println("Which item do you want to drop?");
                     String item = new Scanner(System.in).nextLine();
-                    System.out.println(adventur.dropItem(item));
+                    System.out.print(adventur.dropItem(item));
                 }
-                case "xyzzy" -> System.out.println(adventur.teleport());
-                case "exist" -> System.out.println("You will now exist game.");
+                case "xyzzy" -> System.out.print(adventur.teleport());
+                case "exist" -> System.out.print("You will now exist game.");
                 case "help" -> {
                     Scanner scan2 = new Scanner(System.in);
                     System.out.println("Move around and collect stuff.");
                     System.out.println("If you want to move type: ");
-                    System.out.print("Type in: North, East, West, South. to move");
-                    System.out.println("Press enter if you understand");
+                    System.out.println("Type in: North, East, West, South. to move");
+                    System.out.print("Press enter if you understand");
                     scan2.nextLine();
                 }
-                default -> System.out.println("unknown command.");
+                default -> System.out.print("unknown command.");
             }
         }
     }

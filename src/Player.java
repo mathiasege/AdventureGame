@@ -106,29 +106,29 @@ public class Player {
     }
 
     // Returnere sandt eller falsk, hvis item eksistere.
-    public boolean takeItem(String input){
+    public Item takeItem(String input){
         for(Item item : currentRoom.getItems()){
             // Fjern fra rum og tilføje til inventory.
-            if(item.getName().equals(input)){
+            if(item.getName().toLowerCase().equals(input)){
                 inventory.add(item);
                 currentRoom.removeSpecificItem(item);
-                return true;
+                return item;
             }
         }
 
-        return false;
+        return null;
     }
 
     // Returnere sandt eller falsk, hvis item eksistere.
-    public boolean dropItem(String input){
+    public Item dropItem(String input){
         for(Item item : inventory){
             // Fjern fra player og tilføj til rum.
-            if(item.getName().equals(input)){
+            if(item.getName().toLowerCase().equals(input)){
                 inventory.remove(item);
                 currentRoom.addOneItem(item);
-                return true;
+                return item;
             }
         }
-        return false;
+        return null;
     }
 }

@@ -17,8 +17,8 @@ public class Map {
         Item sword = new Item("Sword", "Long sword");
         Item bow = new Item("Bow", "Fast shooting bow");
         Item dagger = new Item("Dagger", "Throwing dagger");
-        Item keyToRoom2 = new Item("Room 2", "Key to unlock room 2");
-        Item keyToRoom8 = new Item("Room 8", "Key to unlock room 8");
+        Item keyToRoom2 = new Item("Key2", "Key to unlock room 2");
+        Item keyToRoom8 = new Item("Key8", "Key to unlock room 8");
 
         // tilføjer items til room.
 
