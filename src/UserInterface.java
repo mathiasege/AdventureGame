@@ -16,11 +16,15 @@ public class UserInterface {
             System.out.println("\t-----------------------------------------------------");
             System.out.println("\t(1) Move command Type in: North, East, West, South.");
             System.out.println("\t(2) Look in current room type in: look.");
-            System.out.println("\t(3) Need help Type in: help.");
-            System.out.println("\t(4) Teleport Type in: xyzzy");
-            System.out.println("\t(5) If you want to quit game. Type in: exist.");
+            System.out.println("\t(3) Look in inventory type in: inventory.");
+            System.out.println("\t(4) Take a item type in: take.");
+            System.out.println("\t(5) Drop item type in: drop.");
+            System.out.println("\t(6) Need help Type in: help.");
+            System.out.println("\t(7) Teleport Type in: xyzzy.");
+            System.out.println("\t(8) If you want to quit game. Type in: exist.");
 
             input = scan.nextLine().toLowerCase();
+
             switch (input){
                 case "north", "south", "east", "west" -> {
                     // Tjekker om det er muligt at gå igennem.
@@ -32,7 +36,19 @@ public class UserInterface {
                 }
                 case "look" -> {
                     System.out.println("You're in room: " + adventur.getPlayer().getRoom().getName());
-                    System.out.println(adventur.checkLocation());
+                    System.out.println(adventur.checkForItem());
+                    System.out.println(adventur.locationStatus());
+                }
+                case "inventory" -> System.out.println(adventur.checkInventory());
+                case "take" -> {
+                    System.out.println("Which item do you want to take?");
+                    String item = new Scanner(System.in).nextLine();
+                    System.out.println(adventur.takeItem(item));
+                }
+                case "drop" -> {
+                    System.out.println("Which item do you want to drop?");
+                    String item = new Scanner(System.in).nextLine();
+                    System.out.println(adventur.dropItem(item));
                 }
                 case "xyzzy" -> System.out.println(adventur.teleport());
                 case "exist" -> System.out.println("You will now exist game.");

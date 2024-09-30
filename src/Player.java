@@ -1,11 +1,16 @@
+import java.util.ArrayList;
 
 public class Player {
     private Room currentRoom, lastRoom;
     private boolean firstTeleport;
+    // Spørg hvorfor den kan være final?
+    // Den ændre sig jo hele tiden.
+    private final ArrayList<Item> inventory;
 
     public Player(Room currentRoom) {
         this.currentRoom = currentRoom;
         firstTeleport = false;
+        inventory = new ArrayList<>();
     }
 
     public Room getRoom() {
@@ -87,5 +92,38 @@ public class Player {
             currentRoom.setLocked(!currentRoom.getLocked());
 
         return result;
+    }
+
+    // Del 2
+    public String checkInventory(){
+        String temp = "";
+        for(Item item : inventory){
+            temp += item.toString() + ".\n";
+        }
+
+        return temp;
+    }
+
+    public boolean takeItem(String input){
+        for(Item item : currentRoom.getItems()){
+            if(item.getName().equals(input)){
+                inventory.add(item);
+                currentRoom.removeSpecificItem(item);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean dropItem(String input){
+        for(Item item : inventory){
+            if(item.getName().equals(input)){
+                inventory.remove(item);
+                currentRoom.addOneItem(item);
+                return true;
+            }
+        }
+        return false;
     }
 }

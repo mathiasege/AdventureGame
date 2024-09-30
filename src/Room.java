@@ -1,12 +1,17 @@
+import java.util.ArrayList;
+
 public class Room {
     private String roomName, description;
     private Room north, south, east, west;
 
-    // del 2. hasVisited er for selve rummet
+    // del 1 Ekstra. hasVisited er for selve rummet
     private boolean locked, hasVisited;
 
     // Det er for rummene man kan besøge
     private boolean northVisited, southVisited,eastVisited,westVisited;
+
+    // Del 2
+    private ArrayList<Item> items;
 
     public Room(String roomName, String description){
         this.roomName = roomName;
@@ -21,6 +26,8 @@ public class Room {
         southVisited = false;
         eastVisited = false;
         westVisited = false;
+
+        items = new ArrayList<>();
     }
 
     public void setNorthVisited(boolean northVisited) {
@@ -97,7 +104,22 @@ public class Room {
         return hasVisited;
     }
     public void setHasVisited(boolean hasVisited) {
-        // Sætter til modsat.
+        // Sætter til hasVisited.
         this.hasVisited = hasVisited;
+    }
+
+    // Del 2
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+    public boolean addOneItem(Item item){
+        return items.add(item);
+    }
+
+    public void removeSpecificItem(Item item){
+        items.remove(item);
     }
 }

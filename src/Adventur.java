@@ -22,15 +22,15 @@ public class Adventur {
         // Henter current for at rette description til "Been there done that."
         Room room = player.move(input);
 
-        // Tjekker om room er tomt. Sætter string udfra det.
-        String result = room != null
+        // Tjekker om room er tomt. Returnere string udfra det.
+        return room != null
                 ? player.setLock() + " " + setRoomText(room)
                 : "You cannot go that way.";
-
-        return result;
     }
     // sætter true på rum du er tilgået.
     private void setVisited(String input){
+        //
+        // Sætter alle til modsat af den værdi de har.
         if(input.equals("north") && !player.getRoom().isNorthVisited()){
             player.getRoom().setNorthVisited(!player.getRoom().isNorthVisited());
         }
@@ -56,11 +56,8 @@ public class Adventur {
         return player.checkLock(input);
     }
 
-    public String checkLocation(){
-        return checkLocations();
-    }
     // Metoden sender result tilbage, når alle rum er blevet besøgt.
-    private String checkLocations() {
+    public String locationStatus() {
         // opretter lokale variabler.
         String result = "";
 
@@ -68,32 +65,55 @@ public class Adventur {
         if(player.getRoom().getNorth() != null){
             result += "You can go north.\n";
         }
-
-        // Hvis rummet er forskellig for null
         if(player.getRoom().getSouth() != null){
             result += "You can go south.\n";
         }
-
-        // Hvis rummet er forskellig for null
         if(player.getRoom().getEast() != null){
             result += "You can go east.\n";
         }
-
-        // Hvis rummet er forskellig for null
         if(player.getRoom().getWest() != null){
             result += "You can go north.\n";
         }
 
-        // result kommer kun tilbage hvis countTrue er = med count.
+        // result kommer kun tilbage hvis alle er true.
         return player.getRoom().isNorthVisited()
                 && player.getRoom().isSouthVisited()
                 && player.getRoom().isEastVisited()
                 && player.getRoom().isWestVisited()
-                ? result + "\nAll rooms have been visited"
+                ? result + "All rooms have been visited."
                 : "";
     }
 
     public Player getPlayer() {
         return player;
+    }
+
+    // Del 2
+    public String checkForItem(){
+        String temp = "";
+        for(var item : player.getRoom().getItems()){
+            temp += item.toString() + "\n";
+        }
+
+        return temp.isEmpty()
+                ? ""
+                : temp;
+    }
+
+    public String takeItem(String input){
+        return player.takeItem(input)
+                ? "You took the item."
+                :  "Item doesn't exist.";
+    }
+    public String checkInventory(){
+        return player.checkInventory().isEmpty()
+                ? "Inventory is empty."
+                : "Your inventory:\n" + player.checkInventory();
+    }
+
+    public String dropItem(String input){
+        return player.dropItem(input)
+                ? "You dropped the item."
+                : "Item doesn't exist.";
     }
 }
