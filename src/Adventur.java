@@ -14,6 +14,17 @@ public class Adventur {
         return player.teleport().getName();
     }
 
+    public String getLock(){
+        // Før jeg sætter variablen, sætter jeg tekst udfra hvad den er nu.
+        String result = player.getRoom().getLocked()
+                ? "You unlocked the door."
+                : "The door is not locked.";
+
+        player.setLock();
+
+        return result;
+    }
+
     // Metoden for at gå.
     public String move(String input){
         // Sætter visited for rum du kan tilgå
@@ -24,7 +35,7 @@ public class Adventur {
 
         // Tjekker om room er tomt. Returnere string udfra det.
         return room != null
-                ? player.setLock() + " " + setRoomText(room)
+                ? setRoomText(room)
                 : "You cannot go that way.";
     }
     // sætter true på rum du er tilgået.

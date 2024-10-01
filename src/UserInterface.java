@@ -30,9 +30,16 @@ public class UserInterface {
                 case "north", "south", "east", "west" -> {
                     // Tjekker om det er muligt at gå igennem.
                     if(adventur.checkLock(input) && adventur.getPlayer().getRoom() != null)
-                        System.out.print("The door is locked. Find another way");
+                        System.out.println("The door is locked. Find another way");
                     else{
+                        Room temp = adventur.getPlayer().getRoom();
                         System.out.println(adventur.move(input));
+
+                        // Tjekker låsen, hvis man skifter rum og ikke har været der.
+                        if(temp != adventur.getPlayer().getRoom()
+                                && !adventur.getPlayer().getRoom().getHasVisited()){
+                            System.out.println(adventur.getLock());
+                        }
                         System.out.print(adventur.checkForItem());
                     }
                 }

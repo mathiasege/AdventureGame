@@ -82,17 +82,10 @@ public class Player {
     }
 
     // Sætter locked variablen
-    public String setLock() {
-        // Før jeg sætter variablen, sætter jeg tekst udfra hvad den er nu.
-        String result = currentRoom.getLocked()
-                ? "You unlocked the door."
-                : "The door is not locked.";
-
+    public void setLock() {
         // hvis locked er true. Sæt til false.
         if (currentRoom.getLocked())
             currentRoom.setLocked(!currentRoom.getLocked());
-
-        return result;
     }
 
     // Del 2
