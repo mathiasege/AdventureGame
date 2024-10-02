@@ -35,19 +35,23 @@ public class Player {
         return getROOM_NAME();
     }
 
-    // Tjekker om døren er låst.
-    public boolean checkLock() {
-        if (getROOM_NAME().equals("Cell")
-                // Tjekker for true
-                && getRoom().getWestIsLocked())
-            return getRoom().getWestIsLocked();
-        if (getROOM_NAME().equals("Living Room")
-                // Tjekker for true.
-                && getRoom().getEastIsLocked())
-            return getRoom().getEastIsLocked();
+    // Prøver at låse op.
+    public Room tryKey(ArrayList<String> keys){
+        // Hvis jeg har en denne nøgle
+        if(keys.contains("KeyMine")){
+            // Lås op.
+            getRoomEast().setIsLocked(!getRoom().getEastIsLocked());
+            return getRoomEast();
+        }
 
-        // return false
-        return getRoom().getIsLocked();
+        // Hvis jeg har denne nøgle
+        if(keys.contains("KeySuite")){
+            // lås op.
+            getRoomWest().setIsLocked(!getRoom().getWestIsLocked());
+            return getRoomWest();
+        }
+
+        return  null;
     }
 
     // Metoden for at bevæge sig rundt.
@@ -76,9 +80,9 @@ public class Player {
 
     // Del 2
     // Henter items i inventory.
-
     public String checkInventory(){
         String temp = "";
+        // Henter alt ind
         for(Item item : inventory){
             temp += item.toString() + ".\n";
         }
@@ -114,29 +118,26 @@ public class Player {
         return null;
     }
 
+    // Henter kun nøgle items.
+    public ArrayList<String> getKeys(){
+        ArrayList<String> keys = new ArrayList<>();
+        for(Item item : inventory){
+
+            // Hvis der er nøgle i ordet. Tilføj til liste
+            if(item.getNAME().contains("Key")){
+                keys.add(item.getNAME());
+            }
+        }
+        // Returner liste.
+        return keys;
+    }
+
     // ------------------------- GET / SET -------------------------
     public Room getRoom() {
         return currentRoom;
     }
     public String getROOM_NAME(){
         return getRoom().getROOM_NAME();
-    }
-    public void setRoomDescription(String Description){
-        getRoom().setDESCRIPTION(Description);
-    }
-    public String getRoomDescription(){
-        return getRoom().getDESCRIPTION();
-    }
-
-    public boolean getRoomIsLocked(){
-        return getRoom().getIsLocked();
-    }
-
-    // Sætter locked variablen
-    public void setLockIfTrue() {
-        // hvis locked er true. Sæt til false.
-        if (getRoom().getIsLocked())
-            getRoom().setIsLocked(!getRoom().getIsLocked());
     }
 
     public Room getRoomNorth(){
@@ -180,6 +181,12 @@ public class Player {
     // Del 2
     public ArrayList<Item> getRoomItems(){
         return getRoom().getItems();
+    }
+    public boolean getWestIsLocked(){
+        return getRoomWest().getIsLocked();
+    }
+    public boolean getEastIsLocked(){
+        return getRoomEast().getIsLocked();
     }
     // ----------------------------------------------------------
 }

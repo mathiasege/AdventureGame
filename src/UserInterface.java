@@ -23,25 +23,22 @@ public class UserInterface {
             System.out.println("\t(7) Teleport Type in: xyzzy.");
             System.out.println("\t(8) If you want to quit game. Type in: exist.");
 
-            input = scan.nextLine().toLowerCase();
+            input = scan.nextLine().toLowerCase().trim();
 
             switch (input){
                 case "north", "south", "east", "west" -> {
-                    // Tjekker om det er muligt at gå igennem.
-                    if(adventur.getCheckLock())
-                        System.out.println("The door is locked. Find another way");
-                    else{
-                        Room temp = adventur.getRoom();
-                        System.out.println(adventur.move(input));
-
-                        // Tjekker hvis man skifter rum og ikke har været der.
-                        if(!temp.equals(adventur.getRoom())){
-                            System.out.println(adventur.lockStatus());
+                    // Tjekker om det er rum, som har brug for en nøgle
+                    if(adventur.getRoomEast() != null && input.equals("east") && adventur.getEastIsLocked() ||
+                            adventur.getRoomWest() != null && input.equals("west") && adventur.getWestIsLocked()){
+                        // Hvis jeg ikke kan låse op.
+                        if(adventur.getAttemptDoor() == null)
+                            System.out.println("You're missing a key. Cant go that way");
+                        else {
+                            System.out.println("You unlocked the door");
+                            System.out.println("You're in " + adventur.getRoom().toString());
                         }
-//                        if(!temp.equals(adventur.getRoom())
-//                                && !adventur.getRoomHasVisited()){
-//                            System.out.println(adventur.getLock());
-//                        }
+                    } else{
+                        System.out.println(adventur.move(input));
                         System.out.print(adventur.checkForItem());
                     }
                 }

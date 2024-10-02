@@ -89,25 +89,17 @@ public class Room {
         return ROOM_NAME;
     }
 
-    public String getDESCRIPTION(){
-        return DESCRIPTION;
-    }
-    public void setDESCRIPTION(String DESCRIPTION){
-        this.DESCRIPTION = DESCRIPTION;
-    }
-
-    public boolean getWestIsLocked(){
-        return getWest().getIsLocked();
-    }
-    public boolean getEastIsLocked(){
-        return getEast().getIsLocked();
-    }
-
     public boolean getIsLocked() {
         return isLocked;
     }
     public void setIsLocked(boolean isLocked){
         this.isLocked = isLocked;
+    }
+    public boolean getEastIsLocked(){
+        return getEast().isLocked;
+    }
+    public boolean getWestIsLocked(){
+        return getWest().isLocked;
     }
 
     // Det er for selve rummet.

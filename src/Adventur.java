@@ -13,17 +13,6 @@ public class Adventur {
         return player.teleport();
     }
 
-    public String lockStatus(){
-        // Før jeg sætter variablen, sætter jeg tekst udfra hvad den er nu.
-        String result = player.getRoomIsLocked()
-                ? "You unlocked the door."
-                : "The door is not locked.";
-
-        player.setLockIfTrue();
-
-        return result;
-    }
-
     // Metoden for at gå.
     public String move(String input){
         // Sætter visited for rum du kan tilgå
@@ -40,18 +29,10 @@ public class Adventur {
         // Tjekker om man har været der.
         return !room.getHasVisited()
                 ? "You moved on to: " + room.toString()
-                : compareRoomDescription(room);
+                : player.getROOM_NAME() + "." +
+                "\nBeen there done that.";
     }
-    // Giver tekst tilbage.
-    private String compareRoomDescription(Room room){
-        // Sætter description hvis du har været der.
-        String newDescription = "Been there done that.";
 
-        if(!player.getRoomDescription().equals(newDescription))
-            player.setRoomDescription(newDescription);
-
-        return player.getRoom().toString();
-    }
     // sætter true på rum du er tilgået.
     private void setVisited(String input){
         // Sætter alle til modsat af den værdi de har.
@@ -136,6 +117,7 @@ public class Adventur {
     }
 
 
+
     // ------------------------- GET / SET -------------------------
     public Room getRoom() {
         return player.getRoom();
@@ -145,8 +127,23 @@ public class Adventur {
         return getRoom().getHasVisited();
     }
 
-    public boolean getCheckLock(){
-        return player.checkLock();
+    // Del 2
+    public Room getRoomEast(){
+        return player.getRoomEast();
+    }
+    public boolean getEastIsLocked(){
+        return player.getEastIsLocked();
+    }
+
+    public Room getRoomWest(){
+        return player.getRoomWest();
+    }
+    public boolean getWestIsLocked(){
+        return player.getWestIsLocked();
+    }
+
+    public Room getAttemptDoor(){
+        return player.tryKey(player.getKeys());
     }
     // ----------------------------------------------------------
 }
