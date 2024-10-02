@@ -37,11 +37,11 @@ public class Player {
 
     // Tjekker om døren er låst.
     public boolean checkLock() {
-        if (getROOM_NAME().equals("Room 3")
+        if (getROOM_NAME().equals("Cell")
                 // Tjekker for true
                 && getRoom().getWestIsLocked())
             return getRoom().getWestIsLocked();
-        if (getROOM_NAME().equals("Room 7")
+        if (getROOM_NAME().equals("Living Room")
                 // Tjekker for true.
                 && getRoom().getEastIsLocked())
             return getRoom().getEastIsLocked();

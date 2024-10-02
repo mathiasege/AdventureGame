@@ -33,15 +33,15 @@ public class Map {
         itemRoom1.add(bow);
 
         // Opretter rum
-        Room room1 = new Room("Room 1", "You're at the intrance.");
-        Room room2 = new Room("Room 2", "You're in the mine.");
-        Room room3 = new Room("Room 3", "You're in the cell.");
-        Room room4 = new Room("Room 4", "You're in the hall.");
-        Room room5 = new Room("Room 5", "You're in the book room.");
-        Room room6 = new Room("Room 6", "You're in the bed room.");
-        Room room7 = new Room("Room 7", "You're in the living room.");
-        Room room8 = new Room("Room 8", "You're in the president suit.");
-        Room room9 = new Room("Room 9", "You're in the dragon room.");
+        Room room1 = new Room("Entrance", "A small, shadowy entryway with a dusty mat and a flickering bulb casting eerie shapes.");
+        Room room2 = new Room("Mine", "Narrow, dark tunnels with the sound of water dripping and unsettling echoes in the distance.");
+        Room room3 = new Room("Cell", "A chilling, stone cell with rusty chains and scratch marks etched into the walls.");
+        Room room4 = new Room("Hall", "A vast, dim hall with cracked walls and portraits of hollow-eyed figures staring back at you.");
+        Room room5 = new Room("Library", "Shelves packed with old, decaying books, their pages whispering secrets as the wind stirs.");
+        Room room6 = new Room("Bedroom", "A dusty bed with torn sheets, and shadows that seem to shift when you're not looking.");
+        Room room7 = new Room("Living Room", "A sinister room with a cold fireplace, torn armchairs, and a faint smell of something rotten.");
+        Room room8 = new Room("Presidential Suite", "A once-grand suite, now filled with broken furniture and an oppressive sense of dread.");
+        Room room9 = new Room("Dragon Room", "An eerie room lined with dragon statues, their eyes glowing red, watching your every move.");
 
         room1.setEast(room2);
         room1.setSouth(room4);
