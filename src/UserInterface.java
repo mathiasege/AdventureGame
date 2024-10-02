@@ -8,8 +8,7 @@ public class UserInterface {
         Scanner scan = new Scanner(System.in);
         String input = "";
 
-        System.out.println("You're in room: " + adventur.getRoomName());
-        System.out.println(adventur.getRoomDescription());
+        System.out.println("You're in " + adventur.getRoom().toString());
         System.out.print(adventur.checkForItem());
 
         // kør så længe der ikke er skrevet exist.
@@ -29,7 +28,7 @@ public class UserInterface {
             switch (input){
                 case "north", "south", "east", "west" -> {
                     // Tjekker om det er muligt at gå igennem.
-                    if(adventur.checkLock(input) && adventur.getRoom() != null)
+                    if(adventur.checkLock() && adventur.getRoom() != null)
                         System.out.println("The door is locked. Find another way");
                     else{
                         Room temp = adventur.getRoom();
@@ -44,7 +43,7 @@ public class UserInterface {
                     }
                 }
                 case "look" -> {
-                    System.out.println("You're in room: " + adventur.getRoomName());
+                    System.out.println("You're in " + adventur.getRoom().toString());
                     if(!adventur.locationStatus().isEmpty())
                         System.out.println(adventur.locationStatus());
                     System.out.print(adventur.checkForItem());
@@ -70,7 +69,7 @@ public class UserInterface {
                     System.out.print("Press enter if you understand");
                     scan2.nextLine();
                 }
-                default -> System.out.print("unknown command.");
+                default -> System.out.println("unknown command.");
             }
         }
     }

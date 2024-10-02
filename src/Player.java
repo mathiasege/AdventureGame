@@ -36,17 +36,15 @@ public class Player {
     }
 
     // Tjekker om døren er låst.
-    public boolean checkLock(String input) {
+    public boolean checkLock() {
         if (getROOM_NAME().equals("Room 3")
-                && input.equals("west")
                 // Tjekker for true
-                && getRoom().getWest().getIsLocked())
-            return getRoom().getWest().getIsLocked();
+                && getRoom().getWestIsLocked())
+            return getRoom().getWestIsLocked();
         if (getROOM_NAME().equals("Room 7")
-                && input.equals("east")
                 // Tjekker for true.
-                && getRoom().getEast().getIsLocked())
-            return getRoom().getEast().getIsLocked();
+                && getRoom().getEastIsLocked())
+            return getRoom().getEastIsLocked();
 
         // return false
         return getRoom().getIsLocked();
@@ -116,7 +114,6 @@ public class Player {
         return null;
     }
 
-
     // ------------------------- GET / SET -------------------------
     public Room getRoom() {
         return currentRoom;
@@ -124,8 +121,8 @@ public class Player {
     public String getROOM_NAME(){
         return getRoom().getROOM_NAME();
     }
-    public String getRoomDESCRIPTION(){
-        return getRoom().getDESCRIPTION();
+    public void setRoomDescription(String Description){
+        getRoom().setDESCRIPTION(Description);
     }
 
     public boolean getRoomIsLocked(){
@@ -182,5 +179,4 @@ public class Player {
         return getRoom().getItems();
     }
     // ----------------------------------------------------------
-
 }

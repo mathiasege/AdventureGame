@@ -26,15 +26,16 @@ public class Adventur {
 
     // Metoden for at gå.
     public String move(String input){
+        Room temp = player.getRoom();
         // Sætter visited for rum du kan tilgå
         setVisited(input);
 
         // Henter current for at rette description til "Been there done that."
         Room room = player.move(input);
 
-        // Tjekker om room er tomt. Returnere string udfra det.
-        return room != null
-                ? setRoomText(room)
+        // Tjekker om room er skiftet. Returnere string udfra det.
+        return !room.equals(temp)
+                ? roomText(room)
                 : "You cannot go that way.";
     }
     // sætter true på rum du er tilgået.
@@ -54,15 +55,20 @@ public class Adventur {
         }
     }
     // Giver tekst tilbage.
-    private String setRoomText(Room room){
-        // Den sættes efter om man har været der.
-        return !room.getHasVisited()
-                ? "You moved on to: " + room.getROOM_NAME() + "\n" + room.getDESCRIPTION()
-                : room.getROOM_NAME() + "\nBeen there done that.";
+    private String roomText(Room room){
+        // Hvis du ikke har været der.
+        if(!room.getHasVisited())
+                return "You moved on to: " + room.toString();
+
+        // Sætter description hvis du har været der.
+        String newDescription = "Been there done that.";
+        player.setRoomDescription(newDescription);
+
+        return player.getRoom().toString();
     }
 
-    public boolean checkLock(String input){
-        return player.checkLock(input);
+    public boolean checkLock(){
+        return player.checkLock();
     }
 
     // Metoden sender result tilbage, når alle rum er blevet besøgt.
@@ -136,12 +142,7 @@ public class Adventur {
     public Room getRoom() {
         return player.getRoom();
     }
-    public String getRoomName(){
-        return player.getROOM_NAME();
-    }
-    public String getRoomDescription(){
-        return getRoom().getDESCRIPTION();
-    }
+
     public boolean getRoomHasVisited(){
         return getRoom().getHasVisited();
     }

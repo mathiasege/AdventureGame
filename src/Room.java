@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 public class Room {
-    private final String ROOM_NAME, DESCRIPTION;
+    private final String ROOM_NAME;
+    private String DESCRIPTION;
     private Room north, south, east, west;
 
     // del 1 Ekstra. hasVisited er for selve rummet
@@ -91,6 +92,16 @@ public class Room {
     public String getDESCRIPTION(){
         return DESCRIPTION;
     }
+    public void setDESCRIPTION(String DESCRIPTION){
+        this.DESCRIPTION = DESCRIPTION;
+    }
+
+    public boolean getWestIsLocked(){
+        return getWest().getIsLocked();
+    }
+    public boolean getEastIsLocked(){
+        return getEast().getIsLocked();
+    }
 
     public boolean getIsLocked() {
         return isLocked;
@@ -120,5 +131,10 @@ public class Room {
 
     public void removeSpecificItem(Item item){
         items.remove(item);
+    }
+
+    @Override
+    public String toString(){
+        return ROOM_NAME + ". " + DESCRIPTION;
     }
 }
