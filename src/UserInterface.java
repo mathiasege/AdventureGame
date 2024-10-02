@@ -28,17 +28,20 @@ public class UserInterface {
             switch (input){
                 case "north", "south", "east", "west" -> {
                     // Tjekker om det er muligt at gå igennem.
-                    if(adventur.checkLock() && adventur.getRoom() != null)
+                    if(adventur.getCheckLock())
                         System.out.println("The door is locked. Find another way");
                     else{
                         Room temp = adventur.getRoom();
                         System.out.println(adventur.move(input));
 
-                        // Tjekker låsen, hvis man skifter rum og ikke har været der.
-                        if(temp != adventur.getRoom()
-                                && !adventur.getRoomHasVisited()){
-                            System.out.println(adventur.getLock());
+                        // Tjekker hvis man skifter rum og ikke har været der.
+                        if(!temp.equals(adventur.getRoom())){
+                            System.out.println(adventur.lockStatus());
                         }
+//                        if(!temp.equals(adventur.getRoom())
+//                                && !adventur.getRoomHasVisited()){
+//                            System.out.println(adventur.getLock());
+//                        }
                         System.out.print(adventur.checkForItem());
                     }
                 }

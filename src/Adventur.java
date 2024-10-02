@@ -13,7 +13,7 @@ public class Adventur {
         return player.teleport();
     }
 
-    public String getLock(){
+    public String lockStatus(){
         // Før jeg sætter variablen, sætter jeg tekst udfra hvad den er nu.
         String result = player.getRoomIsLocked()
                 ? "You unlocked the door."
@@ -26,17 +26,31 @@ public class Adventur {
 
     // Metoden for at gå.
     public String move(String input){
-        Room temp = player.getRoom();
         // Sætter visited for rum du kan tilgå
         setVisited(input);
 
-        // Henter current for at rette description til "Been there done that."
+        // prøver at rykke mig.
         Room room = player.move(input);
 
-        // Tjekker om room er skiftet. Returnere string udfra det.
-        return !room.equals(temp)
-                ? roomText(room)
-                : "You cannot go that way.";
+        // samligner om jeg har rykket mig.
+        if(room == null){
+            return "You cannot go that way.";
+        }
+
+        // Tjekker om man har været der.
+        return !room.getHasVisited()
+                ? "You moved on to: " + room.toString()
+                : compareRoomDescription(room);
+    }
+    // Giver tekst tilbage.
+    private String compareRoomDescription(Room room){
+        // Sætter description hvis du har været der.
+        String newDescription = "Been there done that.";
+
+        if(!player.getRoomDescription().equals(newDescription))
+            player.setRoomDescription(newDescription);
+
+        return player.getRoom().toString();
     }
     // sætter true på rum du er tilgået.
     private void setVisited(String input){
@@ -53,22 +67,6 @@ public class Adventur {
         if(input.equals("west") && !player.getRoomIsWestVisited()){
             player.setRoomIsWestVisited(!player.getRoomIsWestVisited());
         }
-    }
-    // Giver tekst tilbage.
-    private String roomText(Room room){
-        // Hvis du ikke har været der.
-        if(!room.getHasVisited())
-                return "You moved on to: " + room.toString();
-
-        // Sætter description hvis du har været der.
-        String newDescription = "Been there done that.";
-        player.setRoomDescription(newDescription);
-
-        return player.getRoom().toString();
-    }
-
-    public boolean checkLock(){
-        return player.checkLock();
     }
 
     // Metoden sender result tilbage, når alle rum er blevet besøgt.
@@ -145,6 +143,10 @@ public class Adventur {
 
     public boolean getRoomHasVisited(){
         return getRoom().getHasVisited();
+    }
+
+    public boolean getCheckLock(){
+        return player.checkLock();
     }
     // ----------------------------------------------------------
 }

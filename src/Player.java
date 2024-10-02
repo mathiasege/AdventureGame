@@ -124,6 +124,9 @@ public class Player {
     public void setRoomDescription(String Description){
         getRoom().setDESCRIPTION(Description);
     }
+    public String getRoomDescription(){
+        return getRoom().getDESCRIPTION();
+    }
 
     public boolean getRoomIsLocked(){
         return getRoom().getIsLocked();

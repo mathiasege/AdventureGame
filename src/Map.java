@@ -22,10 +22,6 @@ public class Map {
 
         // tilføjer items til room.
 
-        // items til room4
-        ArrayList<Item> itemRoom4 = new ArrayList<>();
-        itemRoom4.add(keyToRoom2);
-        itemRoom4.add(dagger);
         // items til room5
         ArrayList<Item> itemRoom5 = new ArrayList<>();
         itemRoom5.add(keyToRoom8);
@@ -60,7 +56,7 @@ public class Map {
 
         room4.setNorth(room1);
         room4.setSouth(room7);
-        room4.setItems(itemRoom4);
+        room4.addOneItem(dagger);
 
         room5.setSouth(room8);
         room5.setItems(itemRoom5);
@@ -71,6 +67,7 @@ public class Map {
 
         room7.setNorth(room4);
         room7.setEast(room8);
+        room7.addOneItem(keyToRoom2);
 
         room8.setNorth(room5);
         room8.setEast(room9);
