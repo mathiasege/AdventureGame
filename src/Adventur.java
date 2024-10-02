@@ -2,7 +2,6 @@ public class Adventur {
     private Map map;
     private Player player;
 
-
     public Adventur(){
         // Istansiere mine variabler.
         map = new Map();
@@ -11,16 +10,16 @@ public class Adventur {
 
     // returnere navnet på det nye rum.
     public String teleport(){
-        return player.teleport().getName();
+        return player.teleport();
     }
 
     public String getLock(){
         // Før jeg sætter variablen, sætter jeg tekst udfra hvad den er nu.
-        String result = player.getRoom().getLocked()
+        String result = player.getRoomIsLocked()
                 ? "You unlocked the door."
                 : "The door is not locked.";
 
-        player.setLock();
+        player.setLockIfTrue();
 
         return result;
     }
@@ -40,27 +39,26 @@ public class Adventur {
     }
     // sætter true på rum du er tilgået.
     private void setVisited(String input){
-        //
         // Sætter alle til modsat af den værdi de har.
-        if(input.equals("north") && !player.getRoom().isNorthVisited()){
-            player.getRoom().setNorthVisited(!player.getRoom().isNorthVisited());
+        if(input.equals("north") && !player.getRoomIsNorthVisited()){
+            player.setRoomIsNorthVisited(!player.getRoomIsNorthVisited());
         }
-        if(input.equals("south") && !player.getRoom().isSouthVisited()){
-            player.getRoom().setSouthVisited(!player.getRoom().isSouthVisited());
+        if(input.equals("south") && !player.getRoomIsSouthVisited()){
+            player.setRoomIsSouthVisited(!player.getRoomIsSouthVisited());
         }
-        if(input.equals("east") && !player.getRoom().isEastVisited()){
-            player.getRoom().setEastVisited(!player.getRoom().isEastVisited());
+        if(input.equals("east") && !player.getRoomIsEastVisited()){
+            player.setRoomIsEastVisited(!player.getRoomIsEastVisited());
         }
-        if(input.equals("west") && !player.getRoom().isWestVisited()){
-            player.getRoom().setWestVisited(!player.getRoom().isWestVisited());
+        if(input.equals("west") && !player.getRoomIsWestVisited()){
+            player.setRoomIsWestVisited(!player.getRoomIsWestVisited());
         }
     }
     // Giver tekst tilbage.
     private String setRoomText(Room room){
         // Den sættes efter om man har været der.
         return !room.getHasVisited()
-                ? "You moved on to: " + room.getName() + "\n" + room.getDescription()
-                : room.getName() + "\nBeen there done that.";
+                ? "You moved on to: " + room.getROOM_NAME() + "\n" + room.getDESCRIPTION()
+                : room.getROOM_NAME() + "\nBeen there done that.";
     }
 
     public boolean checkLock(String input){
@@ -73,30 +71,26 @@ public class Adventur {
         String result = "";
 
         // Hvis rummet er forskellig for null
-        if(player.getRoom().getNorth() != null){
+        if(player.getRoomNorth() != null){
             result += "You can go north.\n";
         }
-        if(player.getRoom().getSouth() != null){
+        if(player.getRoomSouth() != null){
             result += "You can go south.\n";
         }
-        if(player.getRoom().getEast() != null){
+        if(player.getRoomEast() != null){
             result += "You can go east.\n";
         }
-        if(player.getRoom().getWest() != null){
-            result += "You can go north.";
+        if(player.getRoomWest() != null){
+            result += "You can go north.\n";
         }
 
         // result kommer kun tilbage hvis alle er true.
-        return player.getRoom().isNorthVisited()
-                && player.getRoom().isSouthVisited()
-                && player.getRoom().isEastVisited()
-                && player.getRoom().isWestVisited()
+        return player.getRoomIsNorthVisited()
+                && player.getRoomIsSouthVisited()
+                && player.getRoomIsEastVisited()
+                && player.getRoomIsWestVisited()
                 ? result + "All rooms have been visited."
                 : "";
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     // Del 2
@@ -105,7 +99,7 @@ public class Adventur {
         String temp = "";
 
         // henter items.
-        for(var item : player.getRoom().getItems()){
+        for(var item : player.getRoomItems()){
             temp += item.toString() + "\n";
         }
 
@@ -136,4 +130,20 @@ public class Adventur {
                 ? "You dropped the item: " + item.toString()
                 : "You don't have anything like " + input + " in your inventory";
     }
+
+
+    // ------------------------- GET / SET -------------------------
+    public Room getRoom() {
+        return player.getRoom();
+    }
+    public String getRoomName(){
+        return player.getROOM_NAME();
+    }
+    public String getRoomDescription(){
+        return getRoom().getDESCRIPTION();
+    }
+    public boolean getRoomHasVisited(){
+        return getRoom().getHasVisited();
+    }
+    // ----------------------------------------------------------
 }

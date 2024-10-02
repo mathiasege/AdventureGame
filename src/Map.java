@@ -53,7 +53,7 @@ public class Map {
 
         room2.setEast(room3);
         room2.setWest(room1);
-        room2.setLocked(true);
+        room2.setIsLocked(true);
 
         room3.setSouth(room6);
         room3.setWest(room2);
@@ -75,7 +75,7 @@ public class Map {
         room8.setNorth(room5);
         room8.setEast(room9);
         room8.setWest(room7);
-        room8.setLocked(true);
+        room8.setIsLocked(true);
 
         room9.setNorth(room6);
         room9.setWest(room8);

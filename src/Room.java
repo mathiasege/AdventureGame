@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class Room {
-    private String roomName, description;
+    private final String ROOM_NAME, DESCRIPTION;
     private Room north, south, east, west;
 
     // del 1 Ekstra. hasVisited er for selve rummet
-    private boolean locked, hasVisited;
+    private boolean isLocked, hasVisited;
 
     // Det er for rummene man kan besøge
     private boolean northVisited, southVisited,eastVisited,westVisited;
@@ -13,12 +13,12 @@ public class Room {
     // Del 2
     private ArrayList<Item> items;
 
-    public Room(String roomName, String description){
-        this.roomName = roomName;
-        this.description = description;
+    public Room(String ROOM_NAME, String DESCRIPTION){
+        this.ROOM_NAME = ROOM_NAME;
+        this.DESCRIPTION = DESCRIPTION;
 
         // del 2. hasVisited er for selve rummet
-        this.locked = false;
+        this.isLocked = false;
         hasVisited = false;
 
         // Det er for rummene man kan besøge
@@ -84,19 +84,19 @@ public class Room {
         return west;
     }
 
-    public String getName() {
-        return roomName;
+    public String getROOM_NAME() {
+        return ROOM_NAME;
     }
 
-    public String getDescription(){
-        return description;
+    public String getDESCRIPTION(){
+        return DESCRIPTION;
     }
 
-    public boolean getLocked() {
-        return locked;
+    public boolean getIsLocked() {
+        return isLocked;
     }
-    public void setLocked(boolean locked){
-        this.locked = locked;
+    public void setIsLocked(boolean isLocked){
+        this.isLocked = isLocked;
     }
 
     // Det er for selve rummet.
@@ -104,7 +104,6 @@ public class Room {
         return hasVisited;
     }
     public void setHasVisited(boolean hasVisited) {
-        // Sætter til hasVisited.
         this.hasVisited = hasVisited;
     }
 

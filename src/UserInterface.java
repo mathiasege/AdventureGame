@@ -8,8 +8,8 @@ public class UserInterface {
         Scanner scan = new Scanner(System.in);
         String input = "";
 
-        System.out.println("You're in room: " + adventur.getPlayer().getRoom().getName());
-        System.out.println(adventur.getPlayer().getRoom().getDescription());
+        System.out.println("You're in room: " + adventur.getRoomName());
+        System.out.println(adventur.getRoomDescription());
         System.out.print(adventur.checkForItem());
 
         // kør så længe der ikke er skrevet exist.
@@ -29,23 +29,24 @@ public class UserInterface {
             switch (input){
                 case "north", "south", "east", "west" -> {
                     // Tjekker om det er muligt at gå igennem.
-                    if(adventur.checkLock(input) && adventur.getPlayer().getRoom() != null)
+                    if(adventur.checkLock(input) && adventur.getRoom() != null)
                         System.out.println("The door is locked. Find another way");
                     else{
-                        Room temp = adventur.getPlayer().getRoom();
+                        Room temp = adventur.getRoom();
                         System.out.println(adventur.move(input));
 
                         // Tjekker låsen, hvis man skifter rum og ikke har været der.
-                        if(temp != adventur.getPlayer().getRoom()
-                                && !adventur.getPlayer().getRoom().getHasVisited()){
+                        if(temp != adventur.getRoom()
+                                && !adventur.getRoomHasVisited()){
                             System.out.println(adventur.getLock());
                         }
                         System.out.print(adventur.checkForItem());
                     }
                 }
                 case "look" -> {
-                    System.out.println("You're in room: " + adventur.getPlayer().getRoom().getName());
-                    System.out.println(adventur.locationStatus());
+                    System.out.println("You're in room: " + adventur.getRoomName());
+                    if(!adventur.locationStatus().isEmpty())
+                        System.out.println(adventur.locationStatus());
                     System.out.print(adventur.checkForItem());
                 }
                 case "inventory" -> System.out.print(adventur.checkInventory());
