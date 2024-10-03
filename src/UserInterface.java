@@ -15,7 +15,7 @@ public class UserInterface {
         // kør så længe der ikke er skrevet exist.
         while (!input.equals("exist")) {
             System.out.println("\t-----------------------------------------------------");
-            System.out.println("\t- Move command Type in: North, East, West, South.");
+            System.out.println("\t- Move command Type in: go north, go east, go west, go south.");
             System.out.println("\t- Look in current room type in: look.");
             System.out.println("\t- Check health type in: health.");
             System.out.println("\t- Take health type in: eat.");
@@ -36,12 +36,12 @@ public class UserInterface {
             String secondWord = command.length == 2 ? command[1].trim() : "";
 
             switch (firstWord) {
-                case "north", "south", "east", "west" -> {
+                case "go" -> {
                     // Tjekker den rigtige dør.
                     if (adventur.checkDoor(secondWord) && adventur.tryKey() == null){
                         System.out.println("You're missing the right key.");
                     } else {
-                        System.out.println(adventur.move(firstWord));
+                        System.out.println(adventur.move(secondWord));
                         System.out.print(adventur.checkForItem());
                     }
                 }

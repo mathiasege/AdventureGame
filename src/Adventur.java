@@ -106,12 +106,8 @@ public class Adventur {
 
     // Tjekker døren.
     public boolean checkDoor(String input){
-        if(getRoomEast() != null && input.equals("east") && getEastIsLocked() ||
-                getRoomWest() != null && input.equals("west") && getWestIsLocked())
-            // Henter nøgler og prøver på døren.
-            return true;
-
-        return false;
+        return (getRoomEast() != null && input.equals("east") && getEastIsLocked()) ||
+                (getRoomWest() != null && input.equals("west") && getWestIsLocked());
     }
     // Prøver nøglen
     public Room tryKey(){
