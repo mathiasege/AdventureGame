@@ -125,15 +125,16 @@ public class Player {
 
     // Spiser min mad.
     public String eat(String input) {
-        if(input.isEmpty()) return "You have to type a food to eat as well.";
+        if (input.isEmpty()) return "You have to type a food to eat as well.";
 
         Food temp = null;
         for (Item item : inventory) {
             // Hvis det ikke er mad.
             if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
                 return "You can't eat a " + item.getNAME();
-            if (item instanceof Food && item.getNAME().toLowerCase().equals(input))
+            if (item instanceof Food && item.getNAME().toLowerCase().equals(input)) {
                 temp = (Food) item;
+            }
         }
         inventory.remove(temp);
 
@@ -154,7 +155,7 @@ public class Player {
                 : "You need food to eat";
     }
     // Tilføjer liv.
-    private void addHealth(Food temp){
+    private void addHealth(Food temp) {
         // Add health
         health += temp != null ? temp.healthPoints : 0;
 
@@ -175,6 +176,19 @@ public class Player {
         // Returner liste.
         return keys;
     }
+
+    private String checkHealthStatus() {
+        if (getHealth() > 50)
+            return "You're in perfect condition to fight";
+        else
+            return "Avoid fighting. Get something to eat";
+    }
+
+    @Override
+    public String toString() {
+        return "Your health: " + getHealth() + ". " + checkHealthStatus();
+    }
+
 
     // ------------------------- GET / SET -------------------------
     public Room getRoom() {
@@ -250,18 +264,5 @@ public class Player {
     public int getHealth() {
         return health;
     }
-
-    private String checkHealthStatus() {
-        if (getHealth() > 50)
-            return "You're in perfect condition to fight";
-        else
-            return "Avoid fighting. Get something to eat";
-    }
-
-    @Override
-    public String toString() {
-        return "Your health: " + getHealth() + ". " + checkHealthStatus();
-    }
-
     // ----------------------------------------------------------
 }

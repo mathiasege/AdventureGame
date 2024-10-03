@@ -65,16 +65,27 @@ public class UserInterface {
                 case "take" -> System.out.println(adventur.takeItem(secondWord));
                 case "drop" -> System.out.println(adventur.dropItem(secondWord));
                 case "xyzzy" -> System.out.println(adventur.teleport());
-                case "exist" -> System.out.println("You will now exist game.");
                 case "help" -> {
                     Scanner scan2 = new Scanner(System.in);
                     System.out.println("Move around and collect stuff.");
                     System.out.println("You can get or lose health from food.");
-                    System.out.println("If you want to move type: ");
-                    System.out.println("Type in: North, East, West, South. to move");
+                    System.out.println("If you want to eat food. Type in: eat food name");
+                    System.out.println("If you want check health:");
+                    System.out.println("\t- Type in: health");
+                    System.out.println("If you want to move:");
+                    System.out.println("\t- Type in: go north, go east, go west, go south.");
+                    System.out.println("If you want to drop og take a item:");
+                    System.out.println("\t- Type in: drop item or take item.");
+                    System.out.println("If you want to teleport");
+                    System.out.println("\t- Type in: xyzzy.");
+                    System.out.println("Look in inventory:");
+                    System.out.println("\t- Type in: inventory.");
+                    System.out.println("Exist game:");
+                    System.out.println("\t- Type in: Exist.");
                     System.out.println("Press enter if you understand");
                     scan2.nextLine();
                 }
+                case "exist" -> System.out.println("You will now exist game.");
                 default -> System.out.println("unknown command.");
             }
         }
