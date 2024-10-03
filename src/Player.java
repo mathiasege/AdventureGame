@@ -1,16 +1,20 @@
+import Items.Food;
+import Items.Item;
+
 import java.util.ArrayList;
 
 public class Player {
     private Room currentRoom, lastRoom;
     private boolean firstTeleport;
-    // Spørg hvorfor den kan være final?
-    // Den ændre sig jo hele tiden.
+    // Den kan være final fordi, at den kigger på object reference.
     private final ArrayList<Item> inventory;
+    private int health;
 
     public Player(Room currentRoom) {
         this.currentRoom = currentRoom;
         firstTeleport = false;
         inventory = new ArrayList<>();
+        health = 100;
     }
 
     // funktionen for at teleport.
@@ -19,7 +23,7 @@ public class Player {
         Room temp;
         Map map = new Map();
 
-        // hvis ikke man har teleporteret sig før.
+        // hvis ikke man har teleported sig før.
         if (!firstTeleport) {
             lastRoom = getRoom();
             currentRoom = map.getBoard();
@@ -36,22 +40,22 @@ public class Player {
     }
 
     // Prøver at låse op.
-    public Room tryKey(ArrayList<String> keys){
+    public Room tryKey(ArrayList<String> keys) {
         // Hvis jeg har en denne nøgle
-        if(keys.contains("KeyMine")){
+        if (keys.contains("KeyMine")) {
             // Lås op.
             getRoomEast().setIsLocked(!getRoom().getEastIsLocked());
             return getRoomEast();
         }
 
         // Hvis jeg har denne nøgle
-        if(keys.contains("KeySuite")){
+        if (keys.contains("KeySuite")) {
             // lås op.
             getRoomWest().setIsLocked(!getRoom().getWestIsLocked());
             return getRoomWest();
         }
 
-        return  null;
+        return null;
     }
 
     // Metoden for at bevæge sig rundt.
@@ -59,8 +63,7 @@ public class Player {
         Room temp = getRoom();
 
         // sætter hasVisted for rummet.
-        if(!getRoom().getHasVisited())
-            getRoom().setHasVisited(!getRoom().getHasVisited());
+        if (!getRoom().getHasVisited()) getRoom().setHasVisited(!getRoom().getHasVisited());
 
         // sætter current til nyt rom og indhenter tekst på rom.
         if (moveCommand.equals("north") && getRoom().getNorth() != null) {
@@ -80,10 +83,10 @@ public class Player {
 
     // Del 2
     // Henter items i inventory.
-    public String checkInventory(){
+    public String checkInventory() {
         String temp = "";
         // Henter alt ind
-        for(Item item : inventory){
+        for (Item item : inventory) {
             temp += item.toString() + ".\n";
         }
 
@@ -91,12 +94,12 @@ public class Player {
     }
 
     // Returnere sandt eller falsk, hvis item eksistere.
-    public Item takeItem(String input){
-        for(Item item : getRoom().getItems()){
+    public Item takeItem(String input) {
+        for (Item item : getRoom().getItems()) {
             // Fjern fra rum og tilføje til inventory.
-            if(item.getNAME().toLowerCase().equals(input)){
+            if (item.getNAME().toLowerCase().equals(input)) {
                 inventory.add(item);
-                getRoom().removeSpecificItem(item);
+                getRoom().getItems().remove(item);
                 return item;
             }
         }
@@ -105,12 +108,12 @@ public class Player {
     }
 
     // Returnere sandt eller falsk, hvis item eksistere.
-    public Item dropItem(String input){
-        for(Item item : inventory){
+    public Item dropItem(String input) {
+        for (Item item : inventory) {
             // Fjern fra player og tilføj til rum.
-            if(item.getNAME().toLowerCase().equals(input)){
+            if (item.getNAME().toLowerCase().equals(input)) {
                 inventory.remove(item);
-                getRoom().addOneItem(item);
+                getRoom().getItems().add(item);
                 return item;
             }
         }
@@ -118,13 +121,54 @@ public class Player {
         return null;
     }
 
+    // Del 3
+
+    // Spiser min mad.
+    public String eat(String input) {
+        if(input.isEmpty()) return "You have to type a food to eat as well.";
+
+        Food temp = null;
+        for (Item item : inventory) {
+            // Hvis det ikke er mad.
+            if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
+                return "You can't eat a " + item.getNAME();
+            if (item instanceof Food && item.getNAME().toLowerCase().equals(input))
+                temp = (Food) item;
+        }
+        inventory.remove(temp);
+
+        for (Item item : getRoom().getItems()) {
+            // Hvis det ikke er mad.
+            if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
+                return "You can't eat a " + item.getNAME();
+            if (item instanceof Food && item.getNAME().toLowerCase().equals(input))
+                temp = (Food) item;
+        }
+        getRoom().getItems().remove(temp);
+
+        addHealth(temp);
+
+        // Returner String
+        return temp != null
+                ? "You got more health. Your health: " + health
+                : "You need food to eat";
+    }
+    // Tilføjer liv.
+    private void addHealth(Food temp){
+        // Add health
+        health += temp != null ? temp.healthPoints : 0;
+
+        // Hvis liv bliver større end 100. Sæt til 100.
+        if (health > 100) health = 100;
+    }
+
     // Henter kun nøgle items.
-    public ArrayList<String> getKeys(){
+    public ArrayList<String> getKeys() {
         ArrayList<String> keys = new ArrayList<>();
-        for(Item item : inventory){
+        for (Item item : inventory) {
 
             // Hvis der er nøgle i ordet. Tilføj til liste
-            if(item.getNAME().contains("Key")){
+            if (item.getNAME().toLowerCase().contains("key")) {
                 keys.add(item.getNAME());
             }
         }
@@ -136,57 +180,88 @@ public class Player {
     public Room getRoom() {
         return currentRoom;
     }
-    public String getROOM_NAME(){
+
+    public String getROOM_NAME() {
         return getRoom().getROOM_NAME();
     }
 
-    public Room getRoomNorth(){
+    public Room getRoomNorth() {
         return getRoom().getNorth();
     }
-    public Room getRoomSouth(){
+
+    public Room getRoomSouth() {
         return getRoom().getSouth();
     }
-    public Room getRoomEast(){
+
+    public Room getRoomEast() {
         return getRoom().getEast();
     }
-    public Room getRoomWest(){
+
+    public Room getRoomWest() {
         return getRoom().getWest();
     }
 
-    public boolean getRoomIsNorthVisited(){
+    public boolean getRoomIsNorthVisited() {
         return getRoom().isNorthVisited();
     }
-    public void setRoomIsNorthVisited(boolean isNorthVisited){
+
+    public void setRoomIsNorthVisited(boolean isNorthVisited) {
         getRoom().setNorthVisited(isNorthVisited);
     }
-    public boolean getRoomIsSouthVisited(){
+
+    public boolean getRoomIsSouthVisited() {
         return getRoom().isSouthVisited();
     }
-    public void setRoomIsSouthVisited(boolean isSouthVisited){
+
+    public void setRoomIsSouthVisited(boolean isSouthVisited) {
         getRoom().setSouthVisited(isSouthVisited);
     }
-    public boolean getRoomIsEastVisited(){
+
+    public boolean getRoomIsEastVisited() {
         return getRoom().isEastVisited();
     }
-    public void setRoomIsEastVisited(boolean isEastVisited){
+
+    public void setRoomIsEastVisited(boolean isEastVisited) {
         getRoom().setEastVisited(isEastVisited);
     }
-    public boolean getRoomIsWestVisited(){
+
+    public boolean getRoomIsWestVisited() {
         return getRoom().isWestVisited();
     }
-    public void setRoomIsWestVisited(boolean isWestVisited){
+
+    public void setRoomIsWestVisited(boolean isWestVisited) {
         getRoom().setWestVisited(isWestVisited);
     }
 
     // Del 2
-    public ArrayList<Item> getRoomItems(){
+    public ArrayList<Item> getRoomItems() {
         return getRoom().getItems();
     }
-    public boolean getWestIsLocked(){
+
+    public boolean getWestIsLocked() {
         return getRoomWest().getIsLocked();
     }
-    public boolean getEastIsLocked(){
+
+    public boolean getEastIsLocked() {
         return getRoomEast().getIsLocked();
     }
+
+    // Del 3
+    public int getHealth() {
+        return health;
+    }
+
+    private String checkHealthStatus() {
+        if (getHealth() > 50)
+            return "You're in perfect condition to fight";
+        else
+            return "Avoid fighting. Get something to eat";
+    }
+
+    @Override
+    public String toString() {
+        return "Your health: " + getHealth() + ". " + checkHealthStatus();
+    }
+
     // ----------------------------------------------------------
 }

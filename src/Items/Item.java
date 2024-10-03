@@ -1,3 +1,5 @@
+package Items;
+
 public class Item {
     private final String NAME, DESCRIPTION;
 

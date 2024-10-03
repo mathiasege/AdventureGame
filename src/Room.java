@@ -1,3 +1,5 @@
+import Items.Item;
+
 import java.util.ArrayList;
 
 public class Room {
@@ -116,13 +118,6 @@ public class Room {
     }
     public ArrayList<Item> getItems() {
         return items;
-    }
-    public boolean addOneItem(Item item){
-        return items.add(item);
-    }
-
-    public void removeSpecificItem(Item item){
-        items.remove(item);
     }
 
     @Override

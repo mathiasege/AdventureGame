@@ -1,3 +1,7 @@
+import Items.Food;
+import Items.Item;
+import Items.Weapon;
+
 import java.util.ArrayList;
 
 public class Map {
@@ -13,24 +17,37 @@ public class Map {
 
     private void createMap(){
         // Opretter items
-        Item blade = new Item("Blade", "Very sharp blade.");
-        Item sword = new Item("Sword", "Long sword");
-        Item bow = new Item("Bow", "Fast shooting bow");
-        Item dagger = new Item("Dagger", "Throwing dagger");
+        Weapon sword = new Weapon("Sword", "Long sword");
+        Weapon blade = new Weapon("Blade", "Very sharp blade.");
+        Food strawberry = new Food("Strawberry", "Keeps the mind fresh", 50);
+        Food bread = new Food("Bread", "Moldy bread", -20);
+        Food proteinBar = new Food("Protein bar", "Give you strength", 20);
         Item keyToRoom2 = new Item("KeyMine", "Key to unlock Mine");
         Item keyToRoom8 = new Item("KeySuite", "Key to unlock Suite");
 
         // tilføjer items til room.
 
-        // items til room5
-        ArrayList<Item> itemRoom5 = new ArrayList<>();
-        itemRoom5.add(keyToRoom8);
-        itemRoom5.add(blade);
         // items til room1
-        ArrayList<Item> itemRoom1 = new ArrayList<>();
-        itemRoom1.add(sword);// items til room1
-        ArrayList<Item> itemRoom6 = new ArrayList<>();
-        itemRoom1.add(bow);
+        ArrayList<Item> itemsRoom1 = new ArrayList<>();
+        itemsRoom1.add(sword);
+        itemsRoom1.add(bread);
+
+        // Item til room2
+        ArrayList<Item> itemsRoom2 = new ArrayList<>();
+        itemsRoom2.add(proteinBar);
+
+        // items til room5
+        ArrayList<Item> itemsRoom5 = new ArrayList<>();
+        itemsRoom5.add(keyToRoom8);
+        itemsRoom5.add(blade);
+
+        // Items room6
+        ArrayList<Item> itemsRoom6 = new ArrayList<>();
+        itemsRoom6.add(strawberry);
+
+        // Items room7
+        ArrayList<Item> itemsRoom7 = new ArrayList<>();
+        itemsRoom7.add(keyToRoom2);
 
         // Opretter rum
         Room room1 = new Room("Entrance",
@@ -54,29 +71,29 @@ public class Map {
 
         room1.setEast(room2);
         room1.setSouth(room4);
-        room1.setItems(itemRoom1);
+        room1.setItems(itemsRoom1);
 
         room2.setEast(room3);
         room2.setWest(room1);
         room2.setIsLocked(true);
+        room2.setItems(itemsRoom2);
 
         room3.setSouth(room6);
         room3.setWest(room2);
 
         room4.setNorth(room1);
         room4.setSouth(room7);
-        room4.addOneItem(dagger);
 
         room5.setSouth(room8);
-        room5.setItems(itemRoom5);
+        room5.setItems(itemsRoom5);
 
         room6.setNorth(room3);
         room6.setSouth(room9);
-        room6.setItems(itemRoom6);
+        room6.setItems(itemsRoom6);
 
         room7.setNorth(room4);
         room7.setEast(room8);
-        room7.addOneItem(keyToRoom2);
+        room7.setItems(itemsRoom7);
 
         room8.setNorth(room5);
         room8.setEast(room9);
