@@ -1,7 +1,6 @@
 import Models.Food;
 import Models.Item;
 import Models.Room;
-import Models.Weapon;
 
 import java.util.ArrayList;
 
@@ -10,8 +9,7 @@ public class Player {
     private boolean firstTeleport;
     // Den kan være final fordi, at den kigger på object reference.
     private final ArrayList<Item> inventory;
-    private int health;
-    private int bagWeight;
+    private int health, bagWeight;
 
     public Player(Room currentRoom) {
         this.currentRoom = currentRoom;
@@ -99,18 +97,16 @@ public class Player {
 
     // Returnere sandt eller falsk, hvis item eksistere.
     public Item takeItem(Item item) {
-        Item temp = null;
-
         // Fjern fra rum og tilføje til inventory.
         inventory.add(item);
         getRoom().getItems().remove(item);
         bagWeight -= item.getWeight();
-        temp = item;
 
+        // hvis man man kan bærer det.
         if (bagWeight >= 0)
-            return temp;
+            return item;
         else {
-            bagWeight += temp.getWeight();
+            bagWeight += item.getWeight();
             return null;
         }
     }
