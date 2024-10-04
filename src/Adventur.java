@@ -92,10 +92,15 @@ public class Adventur {
 
     // Returnere en besked udfra en bool fra player.takeItem.
     public String takeItem(String input){
-        Item item = player.takeItem(input);
+        Item temp = player.checkItem(input);
+        if(temp == null) return "There is nothing like " + input + " to take around here";;
+
+        Item item = player.takeItem(temp);
         return item != null
-                ? "You took the item: " + item.toString()
-                :  "There is nothing like " + input + " to take around here";
+                ? "You took the item: " + item.toString() + ". Your bag weight: " + player.getBagWeight() + " kg."
+                : "You can't carry any more. Max weight is 100 kg." +
+                "\nYour bag weight: " + player.getBagWeight() + " kg. Item weight: " + temp.getWeight() + " kg.";
+
     }
     // Returnere en besked udfra en bool fra player.dropItem.
     public String dropItem(String input){

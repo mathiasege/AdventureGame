@@ -1,6 +1,7 @@
 import Models.Food;
 import Models.Item;
 import Models.Room;
+import Models.Weapon;
 
 import java.util.ArrayList;
 
@@ -10,12 +11,14 @@ public class Player {
     // Den kan være final fordi, at den kigger på object reference.
     private final ArrayList<Item> inventory;
     private int health;
+    private int bagWeight;
 
     public Player(Room currentRoom) {
         this.currentRoom = currentRoom;
         firstTeleport = false;
         inventory = new ArrayList<>();
         health = 100;
+        bagWeight = 100;
     }
 
     // funktionen for at teleport.
@@ -95,12 +98,27 @@ public class Player {
     }
 
     // Returnere sandt eller falsk, hvis item eksistere.
-    public Item takeItem(String input) {
-        for (Item item : getRoom().getItems()) {
-            // Fjern fra rum og tilføje til inventory.
+    public Item takeItem(Item item) {
+        Item temp = null;
+
+        // Fjern fra rum og tilføje til inventory.
+        inventory.add(item);
+        getRoom().getItems().remove(item);
+        bagWeight -= item.getWeight();
+        temp = item;
+
+        if (bagWeight >= 0)
+            return temp;
+        else {
+            bagWeight += temp.getWeight();
+            return null;
+        }
+    }
+
+    // Kontrollere om item exist.
+    public Item checkItem(String input) {
+        for (Item item : getRoomItems()) {
             if (item.getNAME().toLowerCase().equals(input)) {
-                inventory.add(item);
-                getRoom().getItems().remove(item);
                 return item;
             }
         }
@@ -115,6 +133,7 @@ public class Player {
             if (item.getNAME().toLowerCase().equals(input)) {
                 inventory.remove(item);
                 getRoom().getItems().add(item);
+                bagWeight += item.getWeight();
                 return item;
             }
         }
@@ -158,7 +177,7 @@ public class Player {
         }
 
         // hvis der er fundet noget
-        if(temp != null){
+        if (temp != null) {
             // fjern element
             inventory.remove(temp);
             getRoomItems().remove(temp);
@@ -185,6 +204,7 @@ public class Player {
     public String toString() {
         return "Your health: " + getHealth() + ". " + checkHealthStatus();
     }
+
     private String checkHealthStatus() {
         if (getHealth() > 50) return "You're in condition to fight. Your health: " + getHealth();
         else return "Avoid fighting. Get something to eat. Your health: " + getHealth();
@@ -263,6 +283,10 @@ public class Player {
     // Del 3
     public int getHealth() {
         return health;
+    }
+
+    public int getBagWeight() {
+        return bagWeight;
     }
     // ----------------------------------------------------------
 }
