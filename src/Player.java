@@ -122,51 +122,6 @@ public class Player {
         return null;
     }
 
-    // Del 3
-
-    // Spiser min mad.
-    public EatStatus eat(String input) {
-        if (input.isEmpty()) return EatStatus.NO_FOOD_TYPED;
-
-        Food temp = null;
-        for (Item item : inventory) {
-            // Hvis det ikke er mad.
-            if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
-                return EatStatus.CANT_EAT_ITEM;
-            if (item instanceof Food && item.getNAME().toLowerCase().equals(input)){
-                temp = (Food) item;
-                break;
-            }
-
-        }
-        inventory.remove(temp);
-
-        for (Item item : getRoom().getItems()) {
-            // Hvis det ikke er mad.
-            if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
-                return EatStatus.CANT_EAT_ITEM;
-            if (item instanceof Food && item.getNAME().toLowerCase().equals(input)){
-                temp = (Food) item;
-                break;
-            }
-        }
-        getRoom().getItems().remove(temp);
-
-        setHealth(temp);
-
-        // Returner String
-        return temp != null
-                ? EatStatus.SUCCESS
-                : EatStatus.NO_FOOD_FOUND;
-    }
-    // Tilføjer liv.
-    private void setHealth(Food temp) {
-        // Add health
-        health += temp != null ? temp.healthPoints : 0;
-
-        // Hvis liv bliver større end 100. Sæt til 100.
-        if (health > 100) health = 100;
-    }
 
     // Henter kun nøgle items.
     public ArrayList<String> getKeys() {
@@ -182,18 +137,64 @@ public class Player {
         return keys;
     }
 
-    private String checkHealthStatus() {
-        if (getHealth() > 50)
-            return "You're in perfect condition to fight";
-        else
-            return "Avoid fighting. Get something to eat";
+    // Del 3
+
+    // Spiser min mad.
+    public EatStatus eat(String input) {
+        if (input.isEmpty()) return EatStatus.NO_FOOD_TYPED;
+
+        Food temp = null;
+        ArrayList<Item> findFood = inventory;
+        for (int i = 0; i < 2; i++) {
+            // Hvis man ikke har fundet noget.
+            if (temp == null) {
+                for (Item item : findFood) {
+                    // Hvis det ikke er mad.
+                    if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
+                        return EatStatus.CANT_EAT_ITEM;
+                    if (item instanceof Food && item.getNAME().toLowerCase().equals(input)) {
+                        temp = (Food) item;
+                        break;
+                    }
+                }
+                findFood = getRoomItems();
+            }
+        }
+
+        // hvis der er fundet noget
+        if(temp != null){
+            // fjern element
+            inventory.remove(temp);
+            getRoomItems().remove(temp);
+
+            setHealth(temp);
+        }
+
+        // Returner String
+        return temp != null
+                ? EatStatus.SUCCESS
+                : EatStatus.NO_FOOD_FOUND;
+    }
+
+    // Tilføjer liv.
+    private void setHealth(Food temp) {
+        // Add health
+        health += temp != null ? temp.healthPoints : 0;
+
+        // Hvis liv bliver større end 100. Sæt til 100.
+        if (health > 100) health = 100;
     }
 
     @Override
     public String toString() {
         return "Your health: " + getHealth() + ". " + checkHealthStatus();
     }
-
+    private String checkHealthStatus() {
+        if (getHealth() > 50)
+            return "You're in condition to fight. Your health: " + getHealth();
+        else
+            return "Avoid fighting. Get something to eat. Your health: " + getHealth();
+    }
 
     // ------------------------- GET / SET -------------------------
     public Room getRoom() {

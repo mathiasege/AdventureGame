@@ -61,7 +61,7 @@ public class UserInterface {
                     else
                         System.out.println("You put the food back.");
                 }
-                case "inventory" -> System.out.print(adventur.checkInventory());
+                case "inventory" -> System.out.println(adventur.checkInventory());
                 case "take" -> System.out.println(adventur.takeItem(secondWord));
                 case "drop" -> System.out.println(adventur.dropItem(secondWord));
                 case "xyzzy" -> System.out.println(adventur.teleport());
