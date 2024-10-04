@@ -19,9 +19,9 @@ public class Map {
         Item sword = new Weapon("Sword", "Long sword");
         Item blade = new Weapon("Blade", "Very sharp blade.");
         // Vil gerne være sikker på, at noget mad giver +. Derfor laver jeg random her.
-        Item banana = new Food("banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety.", new Random().nextInt(-20, -5));
-        Item melon = new Food("melon", "A strange melon that may look ripe but could have unexpected flavors.", new Random().nextInt(20, 10));
-        Item apple = new Food("apple", "A crisp apple that promises strength, but its taste might be more tart than expected.", new Random().nextInt(20, 40));
+        Item banana = new Food("Banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety.", new Random().nextInt(-20, -5));
+        Item melon = new Food("Melon", "A strange melon that may look ripe but could have unexpected flavors.", new Random().nextInt(10, 20));
+        Item apple = new Food("Apple", "A crisp apple that promises strength, but its taste might be more tart than expected.", new Random().nextInt(20, 40));
         Item keyToRoom2 = new Key("KeyMine", "Key to unlock Mine");
         Item keyToRoom8 = new Key("KeySuite", "Key to unlock Suite");
 

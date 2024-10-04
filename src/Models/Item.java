@@ -1,29 +1,32 @@
 package Models;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class Item {
     private final String NAME, DESCRIPTION;
-    private final int WEIGHT;
+    private final double WEIGHT;
 
-    public Item(String NAME, String DESCRIPTION, int WEIGHT){
+    public Item(String NAME, String DESCRIPTION, double WEIGHT){
         this.NAME = NAME;
         this.DESCRIPTION = DESCRIPTION;
-        this.WEIGHT = WEIGHT;
+        // Runder til 2 decimaler.
+        this.WEIGHT = Math.round(WEIGHT * 100.0) / 100.0;;
     }
-
 
     public String getNAME() {
         return NAME;
     }
 
-    public int getWeight(){
-        return WEIGHT;
+    public double getWeight(){
+        return  WEIGHT;
     }
 
     @Override
     public String toString(){
-        return "Item: " + NAME + ". " + DESCRIPTION;
+        return "Item: " + NAME + "." +
+                "\nWeight: " + WEIGHT + "." +
+                "\nDescription: " + DESCRIPTION + ".";
     }
 }
 

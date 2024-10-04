@@ -9,7 +9,8 @@ public class Player {
     private boolean firstTeleport;
     // Den kan være final fordi, at den kigger på object reference.
     private final ArrayList<Item> inventory;
-    private int health, bagWeight;
+    private int health;
+    private double bagWeight;
 
     public Player(Room currentRoom) {
         this.currentRoom = currentRoom;
@@ -281,7 +282,7 @@ public class Player {
         return health;
     }
 
-    public int getBagWeight() {
+    public double getBagWeight() {
         return bagWeight;
     }
     // ----------------------------------------------------------
