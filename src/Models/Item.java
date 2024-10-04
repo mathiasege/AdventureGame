@@ -11,7 +11,7 @@ public class Item {
         this.NAME = NAME;
         this.DESCRIPTION = DESCRIPTION;
         // Runder til 2 decimaler.
-        this.WEIGHT = Math.round(WEIGHT * 100.0) / 100.0;;
+        this.WEIGHT = Math.round(WEIGHT * 100.0) / 100.0;
     }
 
     public String getNAME() {
