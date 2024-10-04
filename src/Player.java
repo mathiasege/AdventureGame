@@ -122,16 +122,12 @@ public class Player {
         return null;
     }
 
-
     // Henter kun nøgle items.
     public ArrayList<String> getKeys() {
         ArrayList<String> keys = new ArrayList<>();
         for (Item item : inventory) {
-
             // Hvis der er nøgle i ordet. Tilføj til liste
-            if (item.getNAME().toLowerCase().contains("key")) {
-                keys.add(item.getNAME());
-            }
+            if (item.getNAME().toLowerCase().contains("key")) keys.add(item.getNAME());
         }
         // Returner liste.
         return keys;
@@ -190,10 +186,8 @@ public class Player {
         return "Your health: " + getHealth() + ". " + checkHealthStatus();
     }
     private String checkHealthStatus() {
-        if (getHealth() > 50)
-            return "You're in condition to fight. Your health: " + getHealth();
-        else
-            return "Avoid fighting. Get something to eat. Your health: " + getHealth();
+        if (getHealth() > 50) return "You're in condition to fight. Your health: " + getHealth();
+        else return "Avoid fighting. Get something to eat. Your health: " + getHealth();
     }
 
     // ------------------------- GET / SET -------------------------
