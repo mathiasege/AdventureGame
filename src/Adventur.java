@@ -127,7 +127,7 @@ public class Adventur {
         String status = switch (eatStatus){
             case NO_FOOD_TYPED -> "You need to type a food.";
             case CANT_EAT_ITEM -> "The typed item isn't food.";
-            case SUCCESS -> "You ate " + input + " Your healt: " + player.getHealth() + ".";
+            case SUCCESS -> "You ate " + input + " Your health: " + player.getHealth() + ".";
             case NO_FOOD_FOUND -> "No food found.";
         };
 
