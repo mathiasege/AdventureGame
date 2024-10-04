@@ -1,5 +1,6 @@
-import Items.Food;
-import Items.Item;
+import Models.Food;
+import Models.Item;
+import Models.Room;
 
 import java.util.ArrayList;
 
@@ -124,38 +125,42 @@ public class Player {
     // Del 3
 
     // Spiser min mad.
-    public String eat(String input) {
-        if (input.isEmpty()) return "You have to type a food to eat as well.";
+    public EatStatus eat(String input) {
+        if (input.isEmpty()) return EatStatus.NO_FOOD_TYPED;
 
         Food temp = null;
         for (Item item : inventory) {
             // Hvis det ikke er mad.
             if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
-                return "You can't eat a " + item.getNAME();
-            if (item instanceof Food && item.getNAME().toLowerCase().equals(input)) {
+                return EatStatus.CANT_EAT_ITEM;
+            if (item instanceof Food && item.getNAME().toLowerCase().equals(input)){
                 temp = (Food) item;
+                break;
             }
+
         }
         inventory.remove(temp);
 
         for (Item item : getRoom().getItems()) {
             // Hvis det ikke er mad.
             if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
-                return "You can't eat a " + item.getNAME();
-            if (item instanceof Food && item.getNAME().toLowerCase().equals(input))
+                return EatStatus.CANT_EAT_ITEM;
+            if (item instanceof Food && item.getNAME().toLowerCase().equals(input)){
                 temp = (Food) item;
+                break;
+            }
         }
         getRoom().getItems().remove(temp);
 
-        addHealth(temp);
+        setHealth(temp);
 
         // Returner String
         return temp != null
-                ? "You got more health. Your health: " + health
-                : "You need food to eat";
+                ? EatStatus.SUCCESS
+                : EatStatus.NO_FOOD_FOUND;
     }
     // Tilføjer liv.
-    private void addHealth(Food temp) {
+    private void setHealth(Food temp) {
         // Add health
         health += temp != null ? temp.healthPoints : 0;
 

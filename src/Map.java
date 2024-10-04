@@ -1,8 +1,10 @@
-import Items.Food;
-import Items.Item;
-import Items.Weapon;
+import Models.Food;
+import Models.Item;
+import Models.Room;
+import Models.Weapon;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Map {
     private Room board;
@@ -19,9 +21,9 @@ public class Map {
         // Opretter items
         Weapon sword = new Weapon("Sword", "Long sword");
         Weapon blade = new Weapon("Blade", "Very sharp blade.");
-        Food strawberry = new Food("Strawberry", "Keeps the mind fresh", 50);
-        Food bread = new Food("Bread", "Moldy bread", -20);
-        Food proteinBar = new Food("Protein bar", "Give you strength", 20);
+        Food banana = new Food("banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety.", new Random().nextInt(-20, -5));
+        Food melon = new Food("melon", "A strange melon that may look ripe but could have unexpected flavors.", new Random().nextInt(-20, 20));
+        Food apple = new Food("apple", "A crisp apple that promises strength, but its taste might be more tart than expected.", new Random().nextInt(20, 40));
         Item keyToRoom2 = new Item("KeyMine", "Key to unlock Mine");
         Item keyToRoom8 = new Item("KeySuite", "Key to unlock Suite");
 
@@ -30,11 +32,11 @@ public class Map {
         // items til room1
         ArrayList<Item> itemsRoom1 = new ArrayList<>();
         itemsRoom1.add(sword);
-        itemsRoom1.add(bread);
+        itemsRoom1.add(melon);
 
         // Item til room2
         ArrayList<Item> itemsRoom2 = new ArrayList<>();
-        itemsRoom2.add(proteinBar);
+        itemsRoom2.add(apple);
 
         // items til room5
         ArrayList<Item> itemsRoom5 = new ArrayList<>();
@@ -43,7 +45,7 @@ public class Map {
 
         // Items room6
         ArrayList<Item> itemsRoom6 = new ArrayList<>();
-        itemsRoom6.add(strawberry);
+        itemsRoom6.add(banana);
 
         // Items room7
         ArrayList<Item> itemsRoom7 = new ArrayList<>();
@@ -62,11 +64,11 @@ public class Map {
                 "Shelves packed with old, decaying books, their pages whispering secrets as the wind stirs.");
         Room room6 = new Room("Bedroom",
                 "A dusty bed with torn sheets, and shadows that seem to shift when you're not looking.");
-        Room room7 = new Room("Living Room",
+        Room room7 = new Room("Living Models.Room",
                 "A sinister room with a cold fireplace, torn armchairs, and a faint smell of something rotten.");
         Room room8 = new Room("Suite",
                 "A once-grand suite, now filled with broken furniture and an oppressive sense of dread.");
-        Room room9 = new Room("Dragon Room",
+        Room room9 = new Room("Dragon Models.Room",
                 "An eerie room lined with dragon statues, their eyes glowing red, watching your every move.");
 
         room1.setEast(room2);

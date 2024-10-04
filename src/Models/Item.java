@@ -1,4 +1,4 @@
-package Items;
+package Models;
 
 public class Item {
     private final String NAME, DESCRIPTION;

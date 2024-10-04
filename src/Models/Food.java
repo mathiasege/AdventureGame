@@ -1,4 +1,4 @@
-package Items;
+package Models;
 
 public class Food extends Item {
     public int healthPoints;

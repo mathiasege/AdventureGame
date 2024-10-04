@@ -1,4 +1,5 @@
-import Items.Item;
+import Models.Item;
+import Models.Room;
 
 public class Adventur {
     private Map map;
@@ -115,8 +116,31 @@ public class Adventur {
     }
 
     // Del 3
+
+    // Smider en string tilbage efter min enum.
     public String eat(String input){
-        return player.eat(input);
+        int tempHealth = player.getHealth();
+
+        EatStatus eatStatus = player.eat(input);
+
+        // sætter beskrivelsen udfra min enum
+        String status = switch (eatStatus){
+            case NO_FOOD_TYPED -> "You need to type a food.";
+            case CANT_EAT_ITEM -> "The typed item isn't food.";
+            case SUCCESS -> "You ate the food " + player.getHealth() + ".";
+            case NO_FOOD_FOUND -> "No food found.";
+        };
+
+        // fortæller om player har mistet eller fået liv.
+        // Eller om det overhovedet var spiseligt.
+        if(tempHealth > player.getHealth())
+            return status + " You lost health from unhealthy food.";
+        else if(tempHealth < player.getHealth())
+            return status + " You gain health.";
+        else if(tempHealth == player.getHealth())
+            return status + " Your health was unaffected. Already full.";
+        else
+            return status;
     }
 
 
