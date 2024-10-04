@@ -112,7 +112,7 @@ public class Player {
     }
 
     // Kontrollere om item exist.
-    public Item checkItem(String input) {
+    public Item checkItemForRoom(String input) {
         for (Item item : getRoomItems()) {
             if (item.getNAME().toLowerCase().equals(input)) {
                 return item;

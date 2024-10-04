@@ -4,23 +4,21 @@ import java.util.Random;
 
 public class Item {
     private final String NAME, DESCRIPTION;
-    private int weight;
+    private final int WEIGHT;
 
-    public Item(String name, String DESCRIPTION){
-        this.NAME = name;
+    public Item(String NAME, String DESCRIPTION, int WEIGHT){
+        this.NAME = NAME;
         this.DESCRIPTION = DESCRIPTION;
-        if(this instanceof Food)
-            weight = new Random().nextInt(1,10);
-        else
-            weight = new Random().nextInt(10,20);
-
+        this.WEIGHT = WEIGHT;
     }
+
+
     public String getNAME() {
         return NAME;
     }
 
     public int getWeight(){
-        return weight;
+        return WEIGHT;
     }
 
     @Override

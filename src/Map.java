@@ -1,7 +1,4 @@
-import Models.Food;
-import Models.Item;
-import Models.Room;
-import Models.Weapon;
+import Models.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,14 +16,14 @@ public class Map {
 
     private void createMap(){
         // Opretter items
-        Weapon sword = new Weapon("Sword", "Long sword");
-        Weapon blade = new Weapon("Blade", "Very sharp blade.");
+        Item sword = new Weapon("Sword", "Long sword");
+        Item blade = new Weapon("Blade", "Very sharp blade.");
         // Vil gerne være sikker på, at noget mad giver +. Derfor laver jeg random her.
-        Food banana = new Food("banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety.", new Random().nextInt(-20, -5));
-        Food melon = new Food("melon", "A strange melon that may look ripe but could have unexpected flavors.", new Random().nextInt(-20, 20));
-        Food apple = new Food("apple", "A crisp apple that promises strength, but its taste might be more tart than expected.", new Random().nextInt(20, 40));
-        Item keyToRoom2 = new Item("KeyMine", "Key to unlock Mine");
-        Item keyToRoom8 = new Item("KeySuite", "Key to unlock Suite");
+        Item banana = new Food("banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety.", new Random().nextInt(-20, -5));
+        Item melon = new Food("melon", "A strange melon that may look ripe but could have unexpected flavors.", new Random().nextInt(20, 10));
+        Item apple = new Food("apple", "A crisp apple that promises strength, but its taste might be more tart than expected.", new Random().nextInt(20, 40));
+        Item keyToRoom2 = new Key("KeyMine", "Key to unlock Mine");
+        Item keyToRoom8 = new Key("KeySuite", "Key to unlock Suite");
 
         // tilføjer items til room.
 

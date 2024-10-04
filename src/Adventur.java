@@ -92,8 +92,8 @@ public class Adventur {
 
     // Returnere en besked udfra en bool fra player.takeItem.
     public String takeItem(String input){
-        Item temp = player.checkItem(input);
-        if(temp == null) return "There is nothing like " + input + " to take around here";;
+        Item temp = player.checkItemForRoom(input);
+        if(temp == null) return "There is nothing like " + input + " to take around here";
 
         Item item = player.takeItem(temp);
         return item != null
