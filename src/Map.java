@@ -21,6 +21,7 @@ public class Map {
         // Opretter items
         Weapon sword = new Weapon("Sword", "Long sword");
         Weapon blade = new Weapon("Blade", "Very sharp blade.");
+        // Vil gerne være sikker på, at noget mad giver +. Derfor laver jeg random her.
         Food banana = new Food("banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety.", new Random().nextInt(-20, -5));
         Food melon = new Food("melon", "A strange melon that may look ripe but could have unexpected flavors.", new Random().nextInt(-20, 20));
         Food apple = new Food("apple", "A crisp apple that promises strength, but its taste might be more tart than expected.", new Random().nextInt(20, 40));
