@@ -157,8 +157,10 @@ public class Player {
         if (input.isEmpty()) return EatStatus.NO_FOOD_TYPED;
 
         Food temp = (Food) checkItemInRoom(input);
-
-        if (temp == null) {
+        if (temp != null) {
+            // fjern element fra room list.
+            getRoomItems().remove(temp);
+        }else{
             for (Item item : inventory) {
                 // Hvis det ikke er mad.
                 if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
@@ -167,13 +169,11 @@ public class Player {
                     temp = (Food) item;
             }
 
+            // fjern, hvis der er en.
             inventory.remove(temp);
-        }else{
-            // fjern element fra room list.
-            getRoomItems().remove(temp);
         }
 
-        // hvis der er fundet noget
+        // Dobbelt tjekker, da temp stadig kan være tom.
         if (temp != null) {
             setHealth(temp);
 
