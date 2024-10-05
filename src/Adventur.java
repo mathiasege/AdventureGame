@@ -87,12 +87,12 @@ public class Adventur {
     public String checkInventory(){
         return player.checkInventory().isEmpty()
                 ? "Inventory is empty."
-                : "Your inventory:\n" + player.checkInventory();
+                : "Your inventory:" + player.checkInventory();
     }
 
     // Returnere en besked udfra en bool fra player.takeItem.
     public String takeItem(String input){
-        Item temp = player.checkItemForRoom(input);
+        Item temp = player.checkItemInRoom(input);
         if(temp == null) return "There is nothing like " + input + " to take around here";
 
         Item item = player.takeItem(temp);

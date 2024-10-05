@@ -93,7 +93,7 @@ public class Player {
             temp += item.toString() + ".\n";
         }
 
-        return temp;
+        return temp + "\nYou can carry: " + getBagWeight() + " kg.";
     }
 
     // Returnere sandt eller falsk, hvis item eksistere.
@@ -113,7 +113,7 @@ public class Player {
     }
 
     // Kontrollere om item exist.
-    public Item checkItemForRoom(String input) {
+    public Item checkItemInRoom(String input) {
         for (Item item : getRoomItems()) {
             if (item.getNAME().toLowerCase().equals(input)) {
                 return item;
@@ -153,39 +153,35 @@ public class Player {
 
     // Spiser min mad.
     public EatStatus eat(String input) {
+        // Hvis input er tom
         if (input.isEmpty()) return EatStatus.NO_FOOD_TYPED;
 
-        Food temp = null;
-        ArrayList<Item> findFood = inventory;
-        for (int i = 0; i < 2; i++) {
-            // Hvis man ikke har fundet noget.
-            if (temp == null) {
-                for (Item item : findFood) {
-                    // Hvis det ikke er mad.
-                    if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
-                        return EatStatus.CANT_EAT_ITEM;
-                    if (item instanceof Food && item.getNAME().toLowerCase().equals(input)) {
-                        temp = (Food) item;
-                        break;
-                    }
-                }
-                findFood = getRoomItems();
+        Food temp = (Food) checkItemInRoom(input);
+
+        if (temp == null) {
+            for (Item item : inventory) {
+                // Hvis det ikke er mad.
+                if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
+                    return EatStatus.CANT_EAT_ITEM;
+                if (item instanceof Food && item.getNAME().toLowerCase().equals(input))
+                    temp = (Food) item;
             }
+
+            inventory.remove(temp);
+        }else{
+            // fjern element fra room list.
+            getRoomItems().remove(temp);
         }
 
         // hvis der er fundet noget
         if (temp != null) {
-            // fjern element
-            inventory.remove(temp);
-            getRoomItems().remove(temp);
-
             setHealth(temp);
+
+            return EatStatus.SUCCESS;
         }
 
-        // Returner String
-        return temp != null
-                ? EatStatus.SUCCESS
-                : EatStatus.NO_FOOD_FOUND;
+        // Hvis intet er fundet.
+        return EatStatus.NO_FOOD_FOUND;
     }
 
     // Tilføjer liv.
