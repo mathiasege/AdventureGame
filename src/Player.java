@@ -172,7 +172,7 @@ public class Player {
             return EatStatus.CANT_EAT_ITEM;
 
         // Dobbelt tjekker, da temp stadig kan være tom.
-        if (temp != null && temp instanceof Food) {
+        if (temp instanceof Food) {
             // fjern, hvis der er en.
             inventory.remove(temp);
             getRoomItems().remove(temp);
