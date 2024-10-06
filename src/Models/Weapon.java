@@ -3,7 +3,7 @@ package Models;
 import java.util.Random;
 
 public abstract class Weapon extends Item {
-    private int damage;
+    private final int damage;
 
     public Weapon(String name, String DESCRIPTION, int damage){
         super(name, DESCRIPTION, new Random().nextDouble(10,20));

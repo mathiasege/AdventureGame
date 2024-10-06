@@ -3,8 +3,7 @@ package Models;
 import java.util.ArrayList;
 
 public class Room {
-    private final String ROOM_NAME;
-    private String DESCRIPTION;
+    private final String ROOM_NAME, DESCRIPTION;
     private Room north, south, east, west;
 
     // del 1 Ekstra. hasVisited er for selve rummet

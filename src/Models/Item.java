@@ -1,7 +1,5 @@
 package Models;
 
-import java.text.DecimalFormat;
-import java.util.Random;
 
 public class Item {
     private final String NAME, DESCRIPTION;
