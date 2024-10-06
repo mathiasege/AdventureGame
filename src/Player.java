@@ -153,30 +153,31 @@ public class Player {
 
     // Spiser min mad.
     public EatStatus eat(String input) {
-        // Hvis input er tom
-        if (input.isEmpty()) return EatStatus.NO_FOOD_TYPED;
+        Item temp = checkItemInRoom(input);
 
-        Food temp = (Food) checkItemInRoom(input);
-        if (temp != null) {
-            // fjern element fra room list.
-            getRoomItems().remove(temp);
-        }else{
+        // Hvis der ikke er noget i temp. Led i inventory.
+        if (temp == null) {
             for (Item item : inventory) {
-                // Hvis det ikke er mad.
-                if (!(item instanceof Food) && item.getNAME().toLowerCase().equals(input))
-                    return EatStatus.CANT_EAT_ITEM;
-                if (item instanceof Food && item.getNAME().toLowerCase().equals(input))
-                    temp = (Food) item;
-            }
+                temp = item;
 
-            // fjern, hvis der er en.
-            inventory.remove(temp);
+                if (item instanceof Food && item.getNAME().toLowerCase().equals(input)){
+                    temp = item;
+                    break;
+                }
+            }
         }
 
-        // Dobbelt tjekker, da temp stadig kan være tom.
-        if (temp != null) {
-            setHealth(temp);
+        // Hvis det ikke er mad.
+        if (temp != null && !(temp instanceof Food) && temp.getNAME().toLowerCase().equals(input))
+            return EatStatus.CANT_EAT_ITEM;
 
+        // Dobbelt tjekker, da temp stadig kan være tom.
+        if (temp != null && temp instanceof Food) {
+            // fjern, hvis der er en.
+            inventory.remove(temp);
+            getRoomItems().remove(temp);
+
+            setHealth((Food)temp);
             return EatStatus.SUCCESS;
         }
 

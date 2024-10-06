@@ -106,7 +106,7 @@ public class Adventur {
     public String dropItem(String input){
         Item item = player.dropItem(input);
         return item != null
-                ? "You dropped the item: " + item.toString()
+                ? "You dropped the " + item.toString()
                 : "You don't have anything like " + input + " in your inventory";
     }
 
@@ -130,7 +130,6 @@ public class Adventur {
 
         // sætter beskrivelsen udfra min enum
         String status = switch (eatStatus){
-            case NO_FOOD_TYPED -> "You need to type a food.";
             case CANT_EAT_ITEM -> input + " isn't food.";
             case SUCCESS -> "You ate " + input + " Your health: " + player.getHealth() + ".";
             case NO_FOOD_FOUND -> "No food found.";
@@ -143,7 +142,7 @@ public class Adventur {
         else if(tempHealth < player.getHealth())
             return status + " You gain health.";
         else if(tempHealth == player.getHealth())
-            return status + " Your health was unaffected. Already full.";
+            return status + " Your health was unaffected.";
         else
             return status;
     }
