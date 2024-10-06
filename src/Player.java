@@ -160,10 +160,9 @@ public class Player {
             for (Item item : inventory) {
                 temp = item;
 
-                if (item instanceof Food && item.getNAME().toLowerCase().equals(input)){
-                    temp = item;
+                if (item instanceof Food && item.getNAME().toLowerCase().equals(input))
                     break;
-                }
+
             }
         }
 
