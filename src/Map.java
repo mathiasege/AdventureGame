@@ -16,12 +16,14 @@ public class Map {
 
     private void createMap(){
         // Opretter items
-        Item sword = new Weapon("Sword", "Long sword");
-        Item blade = new Weapon("Blade", "Very sharp blade.");
-        // Vil gerne være sikker på, at noget mad giver +. Derfor laver jeg random her.
-        Item banana = new Food("Banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety.", new Random().nextInt(-20, -5));
-        Item melon = new Food("Melon", "A strange melon that may look ripe but could have unexpected flavors.", new Random().nextInt(10, 20));
-        Item apple = new Food("Apple", "A crisp apple that promises strength, but its taste might be more tart than expected.", new Random().nextInt(20, 40));
+        Item sword = new MeeleWeapon("Sword", "Long sword");
+        Item blade = new MeeleWeapon("Blade", "Very sharp blade");
+        Item bow = new RangedWeapon("Bow", "A long-range weapon that shoots arrows with precision.");
+        Item throwingDagger = new RangedWeapon("Throwing-Dagger", "A small, sharp blade perfect for quick and silent attacks.");
+        // Vil gerne være sikker på, at noget mad giver +, på et tidspunk. Derfor laver jeg random her, individuelt.
+        Item banana = new Food("Banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety", new Random().nextInt(-20, -5));
+        Item melon = new Food("Melon", "A strange melon that may look ripe but could have unexpected flavors", new Random().nextInt(10, 20));
+        Item apple = new Food("Apple", "A crisp apple that promises strength, but its taste might be more tart than expected", new Random().nextInt(20, 40));
         Item keyToRoom2 = new Key("KeyMine", "Key to unlock Mine");
         Item keyToRoom8 = new Key("KeySuite", "Key to unlock Suite");
 
@@ -29,12 +31,13 @@ public class Map {
 
         // items til room1
         ArrayList<Item> itemsRoom1 = new ArrayList<>();
-        itemsRoom1.add(sword);
+        itemsRoom1.add(throwingDagger);
         itemsRoom1.add(melon);
 
         // Item til room2
         ArrayList<Item> itemsRoom2 = new ArrayList<>();
         itemsRoom2.add(apple);
+        itemsRoom2.add(sword);
 
         // items til room5
         ArrayList<Item> itemsRoom5 = new ArrayList<>();
@@ -44,6 +47,7 @@ public class Map {
         // Items room6
         ArrayList<Item> itemsRoom6 = new ArrayList<>();
         itemsRoom6.add(banana);
+        itemsRoom6.add(bow);
 
         // Items room7
         ArrayList<Item> itemsRoom7 = new ArrayList<>();

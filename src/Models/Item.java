@@ -24,7 +24,7 @@ public class Item {
 
     @Override
     public String toString(){
-        return "Item: " + NAME + "." +
+        return  NAME + "." +
                 "\nWeight: " + WEIGHT + "." +
                 "\nDescription: " + DESCRIPTION + ".";
     }

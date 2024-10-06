@@ -1,6 +1,7 @@
 import Models.Food;
 import Models.Item;
 import Models.Room;
+import Models.Weapon;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class Player {
     private final ArrayList<Item> inventory;
     private int health;
     private double bagWeight;
+    private Weapon weapon;
 
     public Player(Room currentRoom) {
         this.currentRoom = currentRoom;
@@ -90,10 +92,10 @@ public class Player {
         String temp = "";
         // Henter alt ind
         for (Item item : inventory) {
-            temp += item.toString() + ".\n";
+            temp += item.toString();
         }
 
-        return temp + "\nYou can carry: " + getBagWeight() + " kg.";
+        return temp;
     }
 
     // Returnere sandt eller falsk, hvis item eksistere.
@@ -102,6 +104,9 @@ public class Player {
         inventory.add(item);
         getRoom().getItems().remove(item);
         bagWeight -= item.getWeight();
+
+        if(item instanceof Weapon)
+            weapon = (Weapon) item;
 
         // hvis man man kan bærer det.
         if (bagWeight >= 0)
@@ -152,7 +157,7 @@ public class Player {
     // Del 3
 
     // Spiser min mad.
-    public EatStatus eat(String input) {
+    public FoundStatus eat(String input) {
         Item temp = checkItemInRoom(input);
 
         // Hvis der ikke er noget i temp. Led i inventory.
@@ -168,7 +173,7 @@ public class Player {
 
         // Hvis det ikke er mad.
         if (temp != null && !(temp instanceof Food) && temp.getNAME().toLowerCase().equals(input))
-            return EatStatus.CANT_EAT_ITEM;
+            return FoundStatus.ANOTHER_ITEM;
 
         // Dobbelt tjekker, da temp stadig kan være tom.
         if (temp instanceof Food) {
@@ -177,11 +182,11 @@ public class Player {
             getRoomItems().remove(temp);
 
             setHealth((Food)temp);
-            return EatStatus.SUCCESS;
+            return FoundStatus.SUCCESS;
         }
 
         // Hvis intet er fundet.
-        return EatStatus.NO_FOOD_FOUND;
+        return FoundStatus.DOESNT_EXIST;
     }
 
     // Tilføjer liv.
@@ -201,6 +206,36 @@ public class Player {
     private String checkHealthStatus() {
         if (getHealth() > 50) return "You're in condition to fight. Your health: " + getHealth();
         else return "Avoid fighting. Get something to eat. Your health: " + getHealth();
+    }
+
+    // Del 4
+
+    // Returnere om man kan bærer våbnet.
+    public FoundStatus equipWeapon(String input){
+        Item item = takeFromInventory(input);
+
+        // Hvis det er et våben, tag.
+        if(item instanceof Weapon){
+            weapon = (Weapon) item;
+            return FoundStatus.SUCCESS;
+        }
+
+        return item != null
+                ? FoundStatus.ANOTHER_ITEM
+                : FoundStatus.DOESNT_EXIST;
+    }
+    // kontrollere om der er det indtastede i bag.
+    private Item takeFromInventory(String input){
+        for(Item item : inventory){
+            if(item.getNAME().equalsIgnoreCase(input))
+                return item;
+        }
+
+        return null;
+    }
+
+    public String useAmmo(){
+        return getWeapon().useAmmo();
     }
 
     // ------------------------- GET / SET -------------------------
@@ -281,5 +316,20 @@ public class Player {
     public double getBagWeight() {
         return bagWeight;
     }
+
+    // Del 4
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public boolean getCanUse(){
+        return getWeapon().canUse();
+    }
+
+    public int getAmmo(){
+        return Integer.parseInt(getWeapon().getAmmo());
+    }
+
     // ----------------------------------------------------------
 }

@@ -1,3 +1,5 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.Scanner;
 
 public class UserInterface {
@@ -18,10 +20,12 @@ public class UserInterface {
             System.out.println("\t- Move command Type in: go north, go east, go west, go south.");
             System.out.println("\t- Look in current room type in: look.");
             System.out.println("\t- Check health type in: health.");
-            System.out.println("\t- Take health type in: eat.");
-            System.out.println("\t- Look in inventory type in: inventory.");
+            System.out.println("\t- Eat food type in: eat.");
+            System.out.println("\t- Attack type in: attack.");
             System.out.println("\t- Take a item type in: take.");
             System.out.println("\t- Drop item type in: drop.");
+            System.out.println("\t- Equip item type in: equip.");
+            System.out.println("\t- Look in inventory type in: inventory.");
             System.out.println("\t- Need help Type in: help.");
             System.out.println("\t- Teleport Type in: xyzzy.");
             System.out.println("\t- If you want to quit game. Type in: exist.");
@@ -38,7 +42,7 @@ public class UserInterface {
             switch (firstWord) {
                 case "go" -> {
                     // Tjekker den rigtige dør.
-                    if (adventur.checkDoor(secondWord) && adventur.tryKey() == null){
+                    if (adventur.checkDoor(secondWord) && adventur.tryKey() == null) {
                         System.out.println("You're missing the right key.");
                     } else {
                         System.out.println(adventur.move(secondWord));
@@ -61,9 +65,22 @@ public class UserInterface {
                     else
                         System.out.println("You put the food back.");
                 }
-                case "inventory" -> System.out.println(adventur.checkInventory());
+                case "attack" -> {
+                    if (adventur.checkCanUse()) {
+                        System.out.println(adventur.attack());
+                        System.out.println(adventur.getWeaponInfo());
+                    } else if(adventur.getWeapon() != null && adventur.getAmmo() == 0){
+                        System.out.println("You're missing ammo:");
+                        System.out.println(adventur.getWeaponInfo());
+                    } else{
+                        System.out.println("You need a weapon to attack");
+                    }
+
+                }
                 case "take" -> System.out.println(adventur.takeItem(secondWord));
                 case "drop" -> System.out.println(adventur.dropItem(secondWord));
+                case "equip" -> System.out.println(adventur.equipWeapon(secondWord));
+                case "inventory" -> System.out.println(adventur.checkInventory());
                 case "xyzzy" -> System.out.println(adventur.teleport());
                 case "help" -> {
                     Scanner scan2 = new Scanner(System.in);
