@@ -100,7 +100,6 @@ public class UserInterface {
                 case "exit" -> System.out.println("You will now exit game.");
                 default -> System.out.println("unknown command.");
             }
-            System.out.println();
 
             if (adventur.getPlayerHealth() <= 0) {
                 System.out.println("You're dead. You lost the game. The game will end");

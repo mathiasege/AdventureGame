@@ -3,8 +3,6 @@ import Models.Item;
 import Models.Room;
 import Models.Weapon;
 
-import java.util.ArrayList;
-
 public class Adventur {
     private Map map;
     private Player player;
@@ -213,8 +211,10 @@ public class Adventur {
 
         e = player.attack(input);
 
-        if (e.getHealth() <= 0)
+        if (e.getHealth() <= 0){
+            player.addItemToRoom(e.getWeapon());
             player.getEnemies().remove(e);
+        }
 
         useEnemyAmmo(e);
     }

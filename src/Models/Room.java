@@ -157,6 +157,10 @@ public class Room {
         return enemies;
     }
 
+    public void addItem(Item item){
+        items.add(item);
+    }
+
     public Enemy getClosestEnemy() {
         Enemy closestEnemy = null;
         for (Enemy enemy : enemies) {

@@ -384,5 +384,9 @@ public class Player {
         return getRoom().getEnemies();
     }
 
+    public void addItemToRoom(Item item){
+        getRoom().addItem(item);
+    }
+
     // ------------------------- GET / SET -------------------------
 }
