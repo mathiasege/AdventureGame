@@ -2,7 +2,7 @@ package Models;
 
 
 public class Item {
-    private final String NAME, DESCRIPTION;
+    protected final String NAME, DESCRIPTION;
     private final double WEIGHT;
 
     public Item(String NAME, String DESCRIPTION, double WEIGHT){
@@ -22,9 +22,9 @@ public class Item {
 
     @Override
     public String toString(){
-        return  NAME + "." +
-                "\nWeight: " + WEIGHT + "." +
-                "\nDescription: " + DESCRIPTION + ".";
+        return  NAME + ":" +
+                "\n- Weight: " + WEIGHT + "." +
+                "\n- Description: " + DESCRIPTION + ".";
     }
 }
 

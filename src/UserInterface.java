@@ -1,21 +1,17 @@
-import jdk.swing.interop.SwingInterOpUtils;
-
 import java.util.Scanner;
 
 public class UserInterface {
 
     public void game() {
         Adventur adventur = new Adventur();
-
         Scanner scan = new Scanner(System.in);
         String input = "";
-
-        System.out.println("You're in " + adventur.getRoom().toString());
-        System.out.println(adventur.getPlayerInfo());
-        System.out.print(adventur.checkForItem());
+        // Dårligt fiks. Har ikke tid til andet.
+        String room = "";
 
         // kør så længe der ikke er skrevet exist.
-        while (!input.equals("exist")) {
+        while (adventur.getPlayerHealth() > 0 && !input.equals("exit")) {
+            displayPlayerRoomDetails(adventur, room);
             System.out.println("\t-----------------------------------------------------");
             System.out.println("\t- Move command Type in: go north, go east, go west, go south.");
             System.out.println("\t- Look in current room type in: look.");
@@ -28,7 +24,7 @@ public class UserInterface {
             System.out.println("\t- Look in inventory type in: inventory.");
             System.out.println("\t- Need help Type in: help.");
             System.out.println("\t- Teleport Type in: xyzzy.");
-            System.out.println("\t- If you want to quit game. Type in: exist.");
+            System.out.println("\t- If you want to quit game. Type in: exit.");
 
             input = scan.nextLine().toLowerCase().trim();
 
@@ -41,12 +37,13 @@ public class UserInterface {
 
             switch (firstWord) {
                 case "go" -> {
+                    room = "";
                     // Tjekker den rigtige dør.
                     if (adventur.checkDoor(secondWord) && adventur.tryKey() == null) {
                         System.out.println("You're missing the right key.");
                     } else {
-                        System.out.println(adventur.move(secondWord));
-                        System.out.print(adventur.checkForItem());
+                        room = adventur.move(secondWord);
+                        System.out.print(room);
                     }
                 }
                 case "look" -> {
@@ -66,16 +63,14 @@ public class UserInterface {
                         System.out.println("You put the food back.");
                 }
                 case "attack" -> {
-                    if (adventur.checkCanUse()) {
-                        System.out.println(adventur.attack());
-                        System.out.println(adventur.getWeaponInfo());
-                    } else if(adventur.getWeapon() != null && adventur.getAmmo() == 0){
+                    if (adventur.checkCanAttack()) {
+                        adventur.attack(secondWord);
+                    } else if (adventur.getWeapon() != null) {
                         System.out.println("You're missing ammo:");
-                        System.out.println(adventur.getWeaponInfo());
-                    } else{
+                        System.out.println(adventur.checkPlayerWeaponInfo());
+                    } else {
                         System.out.println("You need a weapon to attack");
                     }
-
                 }
                 case "take" -> System.out.println(adventur.takeItem(secondWord));
                 case "drop" -> System.out.println(adventur.dropItem(secondWord));
@@ -98,13 +93,32 @@ public class UserInterface {
                     System.out.println("Look in inventory:");
                     System.out.println("\t- Type in: inventory.");
                     System.out.println("Exist game:");
-                    System.out.println("\t- Type in: Exist.");
+                    System.out.println("\t- Type in: Exit.");
                     System.out.println("Press enter if you understand");
                     scan2.nextLine();
                 }
-                case "exist" -> System.out.println("You will now exist game.");
+                case "exit" -> System.out.println("You will now exit game.");
                 default -> System.out.println("unknown command.");
             }
+            System.out.println();
+
+            if (adventur.getPlayerHealth() <= 0) {
+                System.out.println("You're dead. You lost the game. The game will end");
+                System.out.println("Your health: " + adventur.getPlayerHealth());
+            }
         }
+    }
+
+    private void displayPlayerRoomDetails(Adventur adventur, String description) {
+        if (description.isEmpty())
+            System.out.println(adventur.getRoom().toString());
+
+        System.out.println("-------------------- PLAYER --------------------\n" +
+                adventur.getPlayerInfo() +
+                "\n" + adventur.checkPlayerWeaponInfo());
+        System.out.print("-------------------- ITEMS --------------------\n" +
+                adventur.checkForItem());
+        System.out.print("-------------------- ENEMIES --------------------\n" +
+                adventur.checkEnemy());
     }
 }

@@ -1,7 +1,4 @@
-import Models.Food;
-import Models.Item;
-import Models.Room;
-import Models.Weapon;
+import Models.*;
 
 import java.util.ArrayList;
 
@@ -18,7 +15,7 @@ public class Player {
         this.currentRoom = currentRoom;
         firstTeleport = false;
         inventory = new ArrayList<>();
-        health = 100;
+        health = 50;
         bagWeight = 100;
     }
 
@@ -67,9 +64,6 @@ public class Player {
     public Room move(String moveCommand) {
         Room temp = getRoom();
 
-        // sætter hasVisted for rummet.
-        if (!getRoom().getHasVisited()) getRoom().setHasVisited(!getRoom().getHasVisited());
-
         // sætter current til nyt rom og indhenter tekst på rom.
         if (moveCommand.equals("north") && getRoom().getNorth() != null) {
             currentRoom = getRoom().getNorth();
@@ -81,9 +75,18 @@ public class Player {
             currentRoom = getRoom().getWest();
         }
 
+        // Tjekker om man har rykket sig.
         return !getRoom().equals(temp)
                 ? getRoom()
                 : null;
+    }
+
+    // Sætter til sand.
+    public void setHasVisitedTrue() {
+        // sætter hasVisted for rummet.
+        if (!getRoom().getHasVisited()) {
+            getRoom().setHasVisited(!getRoom().getHasVisited());
+        }
     }
 
     // Del 2
@@ -105,7 +108,7 @@ public class Player {
         getRoom().getItems().remove(item);
         bagWeight -= item.getWeight();
 
-        if(item instanceof Weapon)
+        if (item instanceof Weapon)
             weapon = (Weapon) item;
 
         // hvis man man kan bærer det.
@@ -181,7 +184,8 @@ public class Player {
             inventory.remove(temp);
             getRoomItems().remove(temp);
 
-            setHealth((Food)temp);
+            int newHealth = healthFromFood((Food) temp);
+            setHealth(newHealth);
             return FoundStatus.SUCCESS;
         }
 
@@ -190,12 +194,19 @@ public class Player {
     }
 
     // Tilføjer liv.
-    private void setHealth(Food temp) {
+    private int healthFromFood(Food temp) {
         // Add health
         health += temp != null ? temp.healthPoints : 0;
 
-        // Hvis liv bliver større end 100. Sæt til 100.
-        if (health > 100) health = 100;
+        // Hvis liv bliver større end MAX_HEALTH. Sæt til MAX_HEALTH.
+        int MAX_HEALTH = 50;
+        if (health > MAX_HEALTH) health = MAX_HEALTH;
+
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     @Override
@@ -204,18 +215,18 @@ public class Player {
     }
 
     private String checkHealthStatus() {
-        if (getHealth() > 50) return "You're in condition to fight. Your health: " + getHealth();
-        else return "Avoid fighting. Get something to eat. Your health: " + getHealth();
+        if (getHealth() > 50) return "You're in condition to fight.";
+        else return "Avoid fighting. Get something to eat.";
     }
 
     // Del 4
 
     // Returnere om man kan bærer våbnet.
-    public FoundStatus equipWeapon(String input){
+    public FoundStatus equipWeapon(String input) {
         Item item = takeFromInventory(input);
 
         // Hvis det er et våben, tag.
-        if(item instanceof Weapon){
+        if (item instanceof Weapon) {
             weapon = (Weapon) item;
             return FoundStatus.SUCCESS;
         }
@@ -224,23 +235,63 @@ public class Player {
                 ? FoundStatus.ANOTHER_ITEM
                 : FoundStatus.DOESNT_EXIST;
     }
+
     // kontrollere om der er det indtastede i bag.
-    private Item takeFromInventory(String input){
-        for(Item item : inventory){
-            if(item.getNAME().equalsIgnoreCase(input))
+    private Item takeFromInventory(String input) {
+        for (Item item : inventory) {
+            if (item.getNAME().equalsIgnoreCase(input))
                 return item;
         }
 
         return null;
     }
 
-    public String useAmmo(){
-        return getWeapon().useAmmo();
+    // Del 5
+
+    public void useAmmo() {
+        getWeapon().useAmmunition();
+    }
+
+    public Enemy attack(String input) {
+        Enemy enemy = null;
+
+        if (input.isEmpty())
+            enemy = getRoom().getClosestEnemy();
+        else
+            enemy = getRoom().getSpecificEnemy(input);
+
+        return enemy != null
+                ? damage(enemy)
+                : null;
+    }
+    // p = player
+    // e = enemy
+    private Enemy damage(Enemy enemy) {
+        // Skade for eneny
+        int pDamage = weapon.getDamage();
+        enemy.setHealth(enemy.getHealth() - pDamage);
+
+        // Skade for spiller
+        int eDamage = enemy.getWeapon().getDamage();
+        setHealth(getHealth() - eDamage);
+
+        return enemy;
+    }
+
+    // Bruger en i ammo
+    public void useEnemyAmmo(Enemy enemy) {
+        if (enemy.getWeapon().getAmmunition() > 0) {
+            enemy.useAmmo();
+        }
     }
 
     // ------------------------- GET / SET -------------------------
     public Room getRoom() {
         return currentRoom;
+    }
+
+    public void setRoomDescription(String description) {
+        getRoom().setDescription(description);
     }
 
     public String getROOM_NAME() {
@@ -323,13 +374,15 @@ public class Player {
         return weapon;
     }
 
-    public boolean getCanUse(){
-        return getWeapon().canUse();
+    public boolean getCanAttack() {
+        return getWeapon().canAttack();
     }
 
-    public int getAmmo(){
-        return Integer.parseInt(getWeapon().getAmmo());
+    // Del 5
+
+    public ArrayList<Enemy> getEnemies() {
+        return getRoom().getEnemies();
     }
 
-    // ----------------------------------------------------------
+    // ------------------------- GET / SET -------------------------
 }

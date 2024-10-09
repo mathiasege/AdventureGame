@@ -3,10 +3,12 @@ package Models;
 import java.util.Random;
 
 public abstract class Weapon extends Item {
-    private final int damage;
+    protected final int damage;
+    protected int ammo;
 
-    public Weapon(String name, String DESCRIPTION, int damage){
+    public Weapon(String name, String DESCRIPTION, int damage, int ammo){
         super(name, DESCRIPTION, new Random().nextDouble(10,20));
+        this.ammo = ammo;
         this.damage = damage;
     }
 
@@ -14,8 +16,15 @@ public abstract class Weapon extends Item {
         return damage;
     }
 
-    public abstract boolean canUse();
-    public abstract String useAmmo();
-    public abstract String getAmmo();
+    public int getAmmo() {
+        return ammo;
+    }
+    protected void useOneAmmo() {
+        this.ammo--;
+    }
+
+    public abstract boolean canAttack();
+    public abstract void useAmmunition();
+    public abstract int getAmmunition();
 
 }

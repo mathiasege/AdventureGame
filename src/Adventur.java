@@ -1,6 +1,9 @@
+import Models.Enemy;
 import Models.Item;
 import Models.Room;
 import Models.Weapon;
+
+import java.util.ArrayList;
 
 public class Adventur {
     private Map map;
@@ -19,24 +22,27 @@ public class Adventur {
 
     // Metoden for at gå.
     public String move(String input) {
+        String temp = "";
         // Sætter visited for rum du kan tilgå
-        setVisited(input);
+        setAdjacentVisited(input);
+
+        // Ændre description Og sæt til sand
+        if (!player.getRoom().getHasVisited())
+            player.setRoomDescription("Been there done that.");
+        player.setHasVisitedTrue();
 
         // prøver at rykke mig.
         Room room = player.move(input);
 
         // samligner om jeg har rykket mig.
-        if (room == null) return "You cannot go that way.";
+        if (room == null) return "You cannot go that way.\n";
 
-        // Tjekker om man har været der.
-        return !room.getHasVisited()
-                ? "You moved on to: " + room.toString()
-                : player.getROOM_NAME() + "." +
-                "\nBeen there done that.";
+        // Returnere temp, som er ingenting eller
+        return room.toString() + "\n";
     }
 
     // sætter true på rum du er tilgået.
-    private void setVisited(String input) {
+    private void setAdjacentVisited(String input) {
         // Sætter alle til modsat af den værdi de har.
         if (input.equals("north") && !player.getRoomIsNorthVisited())
             player.setRoomIsNorthVisited(!player.getRoomIsNorthVisited());
@@ -80,7 +86,7 @@ public class Adventur {
 
         // returner ingenting, hvis temp er tom. ellers temp.
         return temp.isEmpty()
-                ? ""
+                ? "- No items in this room.\n"
                 : temp;
     }
 
@@ -173,15 +179,46 @@ public class Adventur {
         };
     }
 
-    public boolean checkCanUse() {
+    // Tjekker om man kan angribe
+    public boolean checkCanAttack() {
         if (player.getWeapon() != null)
-            return player.getCanUse();
+            return player.getCanAttack();
 
         return false;
     }
 
-    public String attack(){
-        return player.useAmmo();
+    // Tjekker om der er et våben.
+    public String checkPlayerWeaponInfo() {
+        return player.getWeapon() != null
+                ? player.getWeapon().toString()
+                : "- No weapons equipped.";
+    }
+
+    // Del 5
+    public String checkEnemy() {
+        String returnString = "";
+
+        for (Enemy enemy : player.getEnemies()) {
+            returnString += enemy.toString() + "\n";
+        }
+
+        return !returnString.isEmpty()
+                ? returnString
+                : "- No enemy in this room.\n";
+    }
+
+    public void attack(String input) {
+        Enemy e = null;
+        player.useAmmo();
+
+        e = player.attack(input);
+
+        useEnemyAmmo(e);
+    }
+    // Hvis der er en fjende, brug ammo.
+    private void useEnemyAmmo(Enemy e) {
+        if (e != null)
+            player.useEnemyAmmo(e);
     }
 
 
@@ -216,17 +253,12 @@ public class Adventur {
         return player.toString();
     }
 
+    public int getPlayerHealth() {
+        return player.getHealth();
+    }
+
     // Del 4
-
-    public String getWeaponInfo(){
-        return player.getWeapon().toString();
-    }
-
-    public int getAmmo(){
-        return player.getAmmo();
-    }
-
-    public Weapon getWeapon(){
+    public Weapon getWeapon() {
         return player.getWeapon();
     }
 
