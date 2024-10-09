@@ -1,11 +1,9 @@
-package Models;
-
 import java.util.Random;
 
-public class MeeleWeapon extends Weapon {
+public class RangedWeapon extends Weapon {
 
-    public MeeleWeapon(String name, String DESCRIPTION){
-        super(name, DESCRIPTION, new Random().nextInt(7,12),Integer.MAX_VALUE);
+    public RangedWeapon(String name, String DESCRIPTION){
+        super(name, DESCRIPTION, new Random().nextInt(10,15), new Random().nextInt(2,7));
     }
 
     @Override
@@ -25,7 +23,7 @@ public class MeeleWeapon extends Weapon {
 
     @Override
     public String toString(){
-        return NAME + ": \n- Damage: " + damage + ".";
+        return NAME + ": \n- Ammunition: " + ammo + ". Damage: " + damage + ".";
     }
 
 }

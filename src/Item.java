@@ -1,6 +1,3 @@
-package Models;
-
-
 public class Item {
     protected final String NAME, DESCRIPTION;
     private final double WEIGHT;

@@ -1,5 +1,3 @@
-package Models;
-
 import java.util.Random;
 
 public class Food extends Item {

@@ -1,5 +1,3 @@
-import Models.*;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -86,7 +84,7 @@ public class Map {
                 "A sinister room with a cold fireplace, torn armchairs, and a faint smell of something rotten.");
         Room room8 = new Room("Suite",
                 "A once-grand suite, now filled with broken furniture and an oppressive sense of dread.");
-        Room room9 = new Room("Dragon Models.Room",
+        Room room9 = new Room("Dragon Room",
                 "An eerie room lined with dragon statues, their eyes glowing red, watching your every move.");
 
         room1.setEast(room2);

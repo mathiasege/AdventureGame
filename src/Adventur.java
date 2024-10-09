@@ -1,8 +1,3 @@
-import Models.Enemy;
-import Models.Item;
-import Models.Room;
-import Models.Weapon;
-
 public class Adventur {
     private Map map;
     private Player player;
