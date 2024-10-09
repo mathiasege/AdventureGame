@@ -250,9 +250,11 @@ public class Player {
         getWeapon().useAmmunition();
     }
 
+    // Angiber.
     public Enemy attack(String input) {
         Enemy enemy = null;
 
+        // Hvis input er tomt. Hentet den som er tættest.
         if (input.isEmpty())
             enemy = getRoom().getClosestEnemy();
         else
@@ -385,6 +387,7 @@ public class Player {
     public void addItemToRoom(Item item){
         getRoom().addItem(item);
     }
+
 
     // ------------------------- GET / SET -------------------------
 }

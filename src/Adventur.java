@@ -188,9 +188,12 @@ public class Adventur {
     }
 
     // Del 5
+
+    // Finder fjender.
     public String checkEnemy() {
         String returnString = "";
 
+        // Henter fjender fra rummet.
         for (Enemy enemy : player.getEnemies()) {
             returnString += enemy.toString() + "\n";
         }
@@ -200,12 +203,14 @@ public class Adventur {
                 : "- No enemy in this room.\n";
     }
 
+    // Angriber.
     public void attack(String input) {
         Enemy e = null;
         player.useAmmo();
 
         e = player.attack(input);
 
+        // Tilføjer våben fra monster. Fjerner monster.
         if (e.getHealth() <= 0){
             player.addItemToRoom(e.getWeapon());
             player.getEnemies().remove(e);

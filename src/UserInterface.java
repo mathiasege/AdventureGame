@@ -108,6 +108,7 @@ public class UserInterface {
         }
     }
 
+    // Default udprint ift. indformation
     private void displayPlayerRoomDetails(Adventur adventur, String description) {
         if (description.isEmpty())
             System.out.println(adventur.getRoom().toString());

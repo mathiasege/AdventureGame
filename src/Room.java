@@ -159,12 +159,16 @@ public class Room {
         items.add(item);
     }
 
+    // Henter den som er tættest.
     public Enemy getClosestEnemy() {
         Enemy closestEnemy = null;
+
+        // Looper på List.
         for (Enemy enemy : enemies) {
             if (closestEnemy == null)
                 closestEnemy = enemy;
 
+            // indsætter den som er tættest.
             if (closestEnemy.getMeters() > enemy.getMeters()) {
                 closestEnemy = enemy;
             }
@@ -172,6 +176,7 @@ public class Room {
         return closestEnemy;
     }
 
+    // Henter specifik fjende.
     public Enemy getSpecificEnemy(String input) {
         for (Enemy enemy : enemies) {
             if (enemy.getName().equalsIgnoreCase(input))
