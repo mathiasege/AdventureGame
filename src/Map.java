@@ -15,98 +15,59 @@ public class Map {
     }
 
     private void createMap(){
-        ArrayList<Room> rooms = new ArrayList<>();
-        ArrayList<Item> items = new ArrayList<>();
-        ArrayList<Enemy> enemies = new ArrayList<>();
         Random rand = new Random();
 
-        // Opretter items
-        Item sword = new MeeleWeapon("Sword", "Long sword");
-        Item blade = new MeeleWeapon("Blade", "Very sharp blade");
-        Item bow = new RangedWeapon("Bow", "A long-range weapon that shoots arrows with precision.");
-        Item throwingDagger = new RangedWeapon("Throwing-Dagger", "A small, sharp blade perfect for quick and silent attacks.");
-        Item spear = new MeeleWeapon("Spear", "A long pole weapon, excellent for keeping enemies at a distance.");
-        Item warhammer = new MeeleWeapon("Warhammer", "A heavy weapon that can crush armor and bones alike.");
-        Item crossbow = new RangedWeapon("Crossbow", "A powerful ranged weapon with a mechanical trigger to release bolts.");
-        Item axe = new MeeleWeapon("Axe", "A brutal chopping weapon, ideal for breaking shields.");
-        Item sling = new RangedWeapon("Sling", "A simple but effective weapon for throwing stones at high velocity.");
-
         // Vil gerne være sikker på, at noget mad giver +, på et tidspunk. Derfor laver jeg random her, individuelt.
-        Item banana = new Food("Banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety", rand.nextInt(-20, -5));
         Item melon = new Food("Melon", "A strange melon that may look ripe but could have unexpected flavors", rand.nextInt(10, 20));
         Item apple = new Food("Apple", "A crisp apple that promises strength, but its taste might be more tart than expected", rand.nextInt(20, 40));
+        Item steak = new Food("Steak", "A juicy piece of meat that restores health but leaves you slightly sluggish afterwards.", rand.nextInt(30, 50));
+        Item bread = new Food("Bread", "A loaf of bread. Stale but filling, providing a small boost of stamina.", rand.nextInt(5, 15));
+        Item banana = new Food("Banana", "This vivid banana hints at mental clarity, but its strange color raises questions about its safety", rand.nextInt(-20, -5));
+        Item mushroom = new Food("Mushroom", "A peculiar mushroom. It might increase your vitality, or it could be poisonous.", rand.nextInt(-20, -5));
+        Item cheese = new Food("Cheese", "A wedge of cheese with an intense aroma, which might either heal or nauseate you.", rand.nextInt(-10, -1));
         Item keyToRoom2 = new Key("KeyMine", "Key to unlock Mine");
         Item keyToRoom8 = new Key("KeySuite", "Key to unlock Suite");
-        Item steak = new Food("Steak", "A juicy piece of meat that restores health but leaves you slightly sluggish afterwards.", rand.nextInt(30, 50));
-        Item mushroom = new Food("Mushroom", "A peculiar mushroom. It might increase your vitality, or it could be poisonous.", rand.nextInt(-20, -5));
-        Item bread = new Food("Bread", "A loaf of bread. Stale but filling, providing a small boost of stamina.", rand.nextInt(5, 15));
-        Item cheese = new Food("Cheese", "A wedge of cheese with an intense aroma, which might either heal or nauseate you.", rand.nextInt(-10, -1));
-
-
-        // Til for, at min enemy får et random våben.
-        ArrayList<Item> weapons = new ArrayList<>();
-        weapons.add(sword);
-        weapons.add(blade);
-        weapons.add(bow);
-        weapons.add(throwingDagger);
-        weapons.add(spear);
-        weapons.add(warhammer);
-        weapons.add(crossbow);
-        weapons.add(axe);
-        weapons.add(sling);
 
         // Opretter mine enemies.
-        Weapon enemyWeapon = (Weapon) weapons.get(rand.nextInt(0, weapons.size()));
-        Enemy orc = new Enemy("Orc", rand.nextInt(5, 15), enemyWeapon);
-        enemyWeapon = (Weapon) weapons.get(rand.nextInt(0, weapons.size()));
-        Enemy human = new Enemy("Human", rand.nextInt(5, 15), enemyWeapon);
-        enemyWeapon = (Weapon) weapons.get(rand.nextInt(0, weapons.size()));
-        Enemy elf = new Enemy("Elf", rand.nextInt(5, 15), enemyWeapon);
-        enemyWeapon = (Weapon) weapons.get(rand.nextInt(0, weapons.size()));
-        Enemy goblin = new Enemy("Goblin", rand.nextInt(5, 15), enemyWeapon);
-        enemyWeapon = (Weapon) weapons.get(rand.nextInt(0, weapons.size()));
-        Enemy dwarf = new Enemy("Dwarf", rand.nextInt(5, 15), enemyWeapon);
-        enemyWeapon = (Weapon) weapons.get(rand.nextInt(0, weapons.size()));
-        Enemy zombie = new Enemy("Zombie", rand.nextInt(5, 15), enemyWeapon);
-        enemyWeapon = (Weapon) weapons.get(rand.nextInt(0, weapons.size()));
-        Enemy vampire = new Enemy("Vampire", rand.nextInt(5, 15), enemyWeapon);
-        enemyWeapon = (Weapon) weapons.get(rand.nextInt(0, weapons.size()));
-        Enemy werewolf = new Enemy("Werewolf", rand.nextInt(5, 15), enemyWeapon);
+        Enemy orc = new Enemy("Orc", enemyHealth(rand), (Weapon) newWeapon(rand));
+        Enemy human = new Enemy("Human", enemyHealth(rand), (Weapon) newWeapon(rand));
+        Enemy elf = new Enemy("Elf", enemyHealth(rand), (Weapon) newWeapon(rand));
+        Enemy goblin = new Enemy("Goblin", enemyHealth(rand), (Weapon) newWeapon(rand));
+        Enemy dwarf = new Enemy("Dwarf", enemyHealth(rand), (Weapon) newWeapon(rand));
+        Enemy zombie = new Enemy("Zombie", enemyHealth(rand), (Weapon) newWeapon(rand));
+        Enemy vampire = new Enemy("Vampire", enemyHealth(rand), (Weapon) newWeapon(rand));
+        Enemy werewolf = new Enemy("Werewolf", enemyHealth(rand) , (Weapon) newWeapon(rand));
 
 
         // items til room1
         ArrayList<Item> itemsRoom1 = new ArrayList<>();
-        itemsRoom1.add(sword);
+        itemsRoom1.add(newWeapon(rand));
         itemsRoom1.add(melon);
         itemsRoom1.add(steak);
 
-        // Item til room2
         ArrayList<Item> itemsRoom2 = new ArrayList<>();
-        itemsRoom2.add(weapons.get(rand.nextInt(0, weapons.size())));
+        itemsRoom2.add(newWeapon(rand));
 
         ArrayList<Item> itemsRoom3 = new ArrayList<>();
         itemsRoom3.add(mushroom);
         itemsRoom3.add(bread);
-        itemsRoom3.add(weapons.get(rand.nextInt(0, weapons.size())));
+        itemsRoom3.add(newWeapon(rand));
 
-        // items til room5
         ArrayList<Item> itemsRoom5 = new ArrayList<>();
         itemsRoom5.add(keyToRoom8);
 
-        // Items room6
         ArrayList<Item> itemsRoom6 = new ArrayList<>();
         itemsRoom6.add(banana);
-        itemsRoom6.add(bow);
+        itemsRoom6.add(newWeapon(rand));
 
-        // Items room7
         ArrayList<Item> itemsRoom7 = new ArrayList<>();
         itemsRoom7.add(keyToRoom2);
-        itemsRoom7.add(weapons.get(rand.nextInt(0, weapons.size())));
+        itemsRoom7.add(newWeapon(rand));
 
         ArrayList<Item> itemsRoom9 = new ArrayList<>();
         itemsRoom9.add(cheese);
         itemsRoom9.add(apple);
-        itemsRoom9.add(weapons.get(rand.nextInt(0, weapons.size())));
+        itemsRoom9.add(newWeapon(rand));
 
         // Opretter rum
         Room room1 = new Room("Entrance",
@@ -140,8 +101,8 @@ public class Map {
 
         room3.setSouth(room6);
         room3.setWest(room2);
+        room3.setItems(itemsRoom3);
         room3.setEnemies(zombie);
-
 
         room4.setNorth(room1);
         room4.setSouth(room7);
@@ -168,10 +129,32 @@ public class Map {
 
         room9.setNorth(room6);
         room9.setWest(room8);
+        room9.setItems(itemsRoom9);
         room9.setEnemies(human);
         room9.setEnemies(elf);
 
         // configurer det første rum.
         board = room1;
+    }
+
+    // Opretter nye reference typer hver gang. Undgår genbrug.
+    private Item newWeapon(Random rand){
+        ArrayList<Item> weapons = new ArrayList<>();
+        weapons.add(new MeeleWeapon("Sword", "Long sword"));
+        weapons.add(new MeeleWeapon("Blade", "Very sharp blade"));
+        weapons.add(new RangedWeapon("Bow", "A long-range weapon that shoots arrows with precision."));
+        weapons.add(new RangedWeapon("Throwing-Dagger", "A small, sharp blade perfect for quick and silent attacks."));
+        weapons.add(new MeeleWeapon("Spear", "A long pole weapon, excellent for keeping enemies at a distance."));
+        weapons.add(new MeeleWeapon("Warhammer", "A heavy weapon that can crush armor and bones alike."));
+        weapons.add(new RangedWeapon("Crossbow", "A powerful ranged weapon with a mechanical trigger to release bolts."));
+        weapons.add(new MeeleWeapon("Axe", "A brutal chopping weapon, ideal for breaking shields."));
+        weapons.add(new RangedWeapon("Sling", "A simple but effective weapon for throwing stones at high velocity."));
+
+        return weapons.get(rand.nextInt(0,9));
+    }
+
+    // Har en random, som sætter liv for enemy
+    private int enemyHealth(Random rand){
+        return rand.nextInt(13, 26);
     }
 }

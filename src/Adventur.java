@@ -213,6 +213,9 @@ public class Adventur {
 
         e = player.attack(input);
 
+        if (e.getHealth() <= 0)
+            player.getEnemies().remove(e);
+
         useEnemyAmmo(e);
     }
     // Hvis der er en fjende, brug ammo.

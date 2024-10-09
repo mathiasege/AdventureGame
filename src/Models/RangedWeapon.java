@@ -5,7 +5,7 @@ import java.util.Random;
 public class RangedWeapon extends Weapon{
 
     public RangedWeapon(String name, String DESCRIPTION){
-        super(name, DESCRIPTION, new Random().nextInt(2,4), new Random().nextInt(3,10));
+        super(name, DESCRIPTION, new Random().nextInt(10,15), new Random().nextInt(2,7));
     }
 
     @Override

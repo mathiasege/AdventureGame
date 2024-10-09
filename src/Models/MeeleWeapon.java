@@ -5,7 +5,7 @@ import java.util.Random;
 public class MeeleWeapon extends Weapon {
 
     public MeeleWeapon(String name, String DESCRIPTION){
-        super(name, DESCRIPTION, new Random().nextInt(4,6),Integer.MAX_VALUE);
+        super(name, DESCRIPTION, new Random().nextInt(7,12),Integer.MAX_VALUE);
     }
 
     @Override

@@ -12,6 +12,9 @@ public class UserInterface {
         // kør så længe der ikke er skrevet exist.
         while (adventur.getPlayerHealth() > 0 && !input.equals("exit")) {
             displayPlayerRoomDetails(adventur, room);
+            // Resetter room.
+            room = "";
+
             System.out.println("\t-----------------------------------------------------");
             System.out.println("\t- Move command Type in: go north, go east, go west, go south.");
             System.out.println("\t- Look in current room type in: look.");
@@ -37,7 +40,6 @@ public class UserInterface {
 
             switch (firstWord) {
                 case "go" -> {
-                    room = "";
                     // Tjekker den rigtige dør.
                     if (adventur.checkDoor(secondWord) && adventur.tryKey() == null) {
                         System.out.println("You're missing the right key.");
@@ -50,7 +52,6 @@ public class UserInterface {
                     System.out.println("You're in " + adventur.getRoom().toString());
                     if (!adventur.locationStatus().isEmpty())
                         System.out.println(adventur.locationStatus());
-                    System.out.print(adventur.checkForItem());
                 }
                 case "health" -> System.out.println("Your health: " + adventur.getPlayerInfo());
                 case "eat" -> {
