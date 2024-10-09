@@ -49,7 +49,6 @@ public class UserInterface {
                     }
                 }
                 case "look" -> {
-                    System.out.println("You're in " + adventur.getRoom().toString());
                     if (!adventur.locationStatus().isEmpty())
                         System.out.println(adventur.locationStatus());
                 }
