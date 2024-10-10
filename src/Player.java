@@ -106,7 +106,8 @@ public class Player {
         getRoom().getItems().remove(item);
         bagWeight -= item.getWeight();
 
-        if (item instanceof Weapon)
+        // Tager automaitsk våben på, hvis man ikke har et våben
+        if (item instanceof Weapon && weapon != null)
             weapon = (Weapon) item;
 
         // hvis man man kan bærer det.

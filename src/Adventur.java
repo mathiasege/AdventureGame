@@ -211,7 +211,7 @@ public class Adventur {
         e = player.attack(input);
 
         // Tilføjer våben fra monster. Fjerner monster.
-        if (e.getHealth() <= 0){
+        if (e != null && e.getHealth() <= 0){
             player.addItemToRoom(e.getWeapon());
             player.getEnemies().remove(e);
         }
