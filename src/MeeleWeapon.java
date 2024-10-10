@@ -23,7 +23,7 @@ public class MeeleWeapon extends Weapon {
 
     @Override
     public String toString(){
-        return super.getNAME() + ": \n- Damage: " + super.getDamage() + ".";
+        return super.getNAME() + ": \n- Damage: " + super.getDAMAGE() + ".";
     }
 
 }

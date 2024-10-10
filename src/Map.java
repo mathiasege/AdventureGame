@@ -90,7 +90,7 @@ public class Map {
         room1.setEast(room2);
         room1.setSouth(room4);
         room1.setItems(itemsRoom1);
-        room1.setEnemies(orc);
+        room1.setENEMIES(orc);
 
         room2.setEast(room3);
         room2.setWest(room1);
@@ -100,17 +100,17 @@ public class Map {
         room3.setSouth(room6);
         room3.setWest(room2);
         room3.setItems(itemsRoom3);
-        room3.setEnemies(zombie);
+        room3.setENEMIES(zombie);
 
         room4.setNorth(room1);
         room4.setSouth(room7);
-        room4.setEnemies(werewolf);
-        room4.setEnemies(vampire);
+        room4.setENEMIES(werewolf);
+        room4.setENEMIES(vampire);
 
         room5.setSouth(room8);
         room5.setItems(itemsRoom5);
-        room5.setEnemies(dwarf);
-        room5.setEnemies(goblin);
+        room5.setENEMIES(dwarf);
+        room5.setENEMIES(goblin);
 
         room6.setNorth(room3);
         room6.setSouth(room9);
@@ -128,8 +128,8 @@ public class Map {
         room9.setNorth(room6);
         room9.setWest(room8);
         room9.setItems(itemsRoom9);
-        room9.setEnemies(human);
-        room9.setEnemies(elf);
+        room9.setENEMIES(human);
+        room9.setENEMIES(elf);
 
         // configurer det første rum.
         board = room1;

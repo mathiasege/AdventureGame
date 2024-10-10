@@ -211,13 +211,14 @@ public class Adventur {
         e = player.attack(input);
 
         // Tilføjer våben fra monster. Fjerner monster.
-        if (e != null && e.getHealth() <= 0){
-            player.addItemToRoom(e.getWeapon());
+        if (e != null && e.getHealth() <= 0) {
+            player.addItemToRoom(e.getWEAPON());
             player.getEnemies().remove(e);
+        } else {
+            useEnemyAmmo(e);
         }
-
-        useEnemyAmmo(e);
     }
+
     // Hvis der er en fjende, brug ammo.
     private void useEnemyAmmo(Enemy e) {
         if (e != null)
@@ -243,12 +244,12 @@ public class Adventur {
         return player.getEastIsLocked();
     }
 
-    public Room getRoomWest() {
-        return player.getRoomWest();
-    }
-
     public boolean getWestIsLocked() {
         return player.getWestIsLocked();
+    }
+
+    public Room getRoomWest() {
+        return player.getRoomWest();
     }
 
     // Del 3

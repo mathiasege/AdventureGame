@@ -67,7 +67,6 @@ public class UserInterface {
                         adventur.attack(secondWord);
                     } else if (adventur.getWeapon() != null) {
                         System.out.println("You're missing ammo:");
-                        System.out.println(adventur.checkPlayerWeaponInfo());
                     } else {
                         System.out.println("You need a weapon to attack");
                     }

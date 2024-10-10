@@ -4,7 +4,7 @@ public class Player {
     private Room currentRoom, lastRoom;
     private boolean firstTeleport;
     // Den kan være final fordi, at den kigger på object reference.
-    private final ArrayList<Item> inventory;
+    private final ArrayList<Item> INVENTORY;
     private int health;
     private double bagWeight;
     private Weapon weapon;
@@ -12,7 +12,7 @@ public class Player {
     public Player(Room currentRoom) {
         this.currentRoom = currentRoom;
         firstTeleport = false;
-        inventory = new ArrayList<>();
+        INVENTORY = new ArrayList<>();
         health = 50;
         bagWeight = 100;
     }
@@ -92,7 +92,7 @@ public class Player {
     public String checkInventory() {
         String temp = "";
         // Henter alt ind
-        for (Item item : inventory) {
+        for (Item item : INVENTORY) {
             temp += item.toString();
         }
 
@@ -102,7 +102,7 @@ public class Player {
     // Returnere sandt eller falsk, hvis item eksistere.
     public Item takeItem(Item item) {
         // Fjern fra rum og tilføje til inventory.
-        inventory.add(item);
+        INVENTORY.add(item);
         getRoom().getItems().remove(item);
         bagWeight -= item.getWeight();
 
@@ -132,10 +132,10 @@ public class Player {
 
     // Returnere sandt eller falsk, hvis item eksistere.
     public Item dropItem(String input) {
-        for (Item item : inventory) {
+        for (Item item : INVENTORY) {
             // Fjern fra player og tilføj til rum.
             if (item.getNAME().toLowerCase().equals(input)) {
-                inventory.remove(item);
+                INVENTORY.remove(item);
                 getRoom().getItems().add(item);
                 bagWeight += item.getWeight();
                 return item;
@@ -148,7 +148,7 @@ public class Player {
     // Henter kun nøgle items.
     public ArrayList<String> getKeys() {
         ArrayList<String> keys = new ArrayList<>();
-        for (Item item : inventory) {
+        for (Item item : INVENTORY) {
             // Hvis der er nøgle i ordet. Tilføj til liste
             if (item.getNAME().toLowerCase().contains("key")) keys.add(item.getNAME());
         }
@@ -164,7 +164,7 @@ public class Player {
 
         // Hvis der ikke er noget i temp. Led i inventory.
         if (temp == null) {
-            for (Item item : inventory) {
+            for (Item item : INVENTORY) {
                 temp = item;
 
                 if (item instanceof Food && item.getNAME().toLowerCase().equals(input))
@@ -180,7 +180,7 @@ public class Player {
         // Dobbelt tjekker, da temp stadig kan være tom.
         if (temp instanceof Food) {
             // fjern, hvis der er en.
-            inventory.remove(temp);
+            INVENTORY.remove(temp);
             getRoomItems().remove(temp);
 
             int newHealth = healthFromFood((Food) temp);
@@ -237,7 +237,7 @@ public class Player {
 
     // kontrollere om der er det indtastede i bag.
     private Item takeFromInventory(String input) {
-        for (Item item : inventory) {
+        for (Item item : INVENTORY) {
             if (item.getNAME().equalsIgnoreCase(input))
                 return item;
         }
@@ -269,11 +269,11 @@ public class Player {
     // e = enemy
     private Enemy damage(Enemy enemy) {
         // Skade for eneny
-        int pDamage = weapon.getDamage();
+        int pDamage = weapon.getDAMAGE();
         enemy.setHealth(enemy.getHealth() - pDamage);
 
         // Skade for spiller
-        int eDamage = enemy.getWeapon().getDamage();
+        int eDamage = enemy.getWEAPON().getDAMAGE();
         setHealth(getHealth() - eDamage);
 
         return enemy;
@@ -281,7 +281,7 @@ public class Player {
 
     // Bruger en i ammo
     public void useEnemyAmmo(Enemy enemy) {
-        if (enemy.getWeapon().getAmmunition() > 0) {
+        if (enemy.getWEAPON().getAmmunition() > 0) {
             enemy.useAmmo();
         }
     }
@@ -382,7 +382,7 @@ public class Player {
     // Del 5
 
     public ArrayList<Enemy> getEnemies() {
-        return getRoom().getEnemies();
+        return getRoom().getENEMIES();
     }
 
     public void addItemToRoom(Item item){

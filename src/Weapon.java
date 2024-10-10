@@ -1,23 +1,23 @@
 import java.util.Random;
 
 public abstract class Weapon extends Item {
-    private final int damage;
+    private final int DAMAGE;
     private int ammo;
 
-    public Weapon(String name, String DESCRIPTION, int damage, int ammo){
+    public Weapon(String name, String DESCRIPTION, int DAMAGE, int ammo){
         super(name, DESCRIPTION, new Random().nextDouble(10,20));
         this.ammo = ammo;
-        this.damage = damage;
+        this.DAMAGE = DAMAGE;
     }
 
-    public int getDamage(){
-        return damage;
+    public int getDAMAGE(){
+        return DAMAGE;
     }
 
     public int getAmmo() {
         return ammo;
     }
-    protected void useOneAmmo() {
+    public void useOneAmmo() {
         this.ammo--;
     }
 

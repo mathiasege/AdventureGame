@@ -1,16 +1,16 @@
 import java.util.Random;
 
 public class Enemy {
-    private String name;
+    private final String NAME;
     private int health;
-    private Weapon weapon;
-    private int meters;
+    private final Weapon WEAPON;
+    private final int METERS;
 
-    public Enemy(String name, int health, Weapon weapon){
+    public Enemy(String NAME, int health, Weapon WEAPON){
         this.health = health;
-        this.name = name;
-        this.weapon = weapon;
-        meters = new Random().nextInt(0,10);
+        this.NAME = NAME;
+        this.WEAPON = WEAPON;
+        METERS = new Random().nextInt(0,10);
     }
 
     public void setHealth(int health) {
@@ -20,24 +20,24 @@ public class Enemy {
         return health;
     }
 
-    public Weapon getWeapon() {
-        return weapon;
+    public Weapon getWEAPON() {
+        return WEAPON;
     }
 
     public void useAmmo(){
-        getWeapon().useAmmunition();
+        getWEAPON().useAmmunition();
     }
 
-    public int getMeters(){
-        return meters;
+    public int getMETERS(){
+        return METERS;
     }
 
-    public String getName() {
-        return name;
+    public String getNAME() {
+        return NAME;
     }
 
     @Override
     public String toString(){
-        return name + ":" + "\n- Health: " + health + "\n- " + weapon + "\n- Meters: " + meters + ".";
+        return NAME + ":" + "\n- Health: " + health + "\n- " + WEAPON + "\n- Meters: " + METERS + ".";
     }
 }
