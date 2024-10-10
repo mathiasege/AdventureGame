@@ -70,6 +70,7 @@ public class UserInterface {
                     } else {
                         System.out.println("You need a weapon to attack");
                     }
+
                 }
                 case "take" -> System.out.println(adventur.takeItem(secondWord));
                 case "drop" -> System.out.println(adventur.dropItem(secondWord));
