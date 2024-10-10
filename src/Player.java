@@ -195,7 +195,7 @@ public class Player {
     // Tilføjer liv.
     private int healthFromFood(Food temp) {
         // Add health
-        health += temp != null ? temp.getHealthPoints() : 0;
+        health += temp != null ? temp.getHEALTH_POINTS() : 0;
 
         // Hvis liv bliver større end MAX_HEALTH. Sæt til MAX_HEALTH.
         int MAX_HEALTH = 50;
@@ -253,7 +253,7 @@ public class Player {
 
     // Angiber.
     public Enemy attack(String input) {
-        Enemy enemy = null;
+        Enemy enemy;
 
         // Hvis input er tomt. Hentet den som er tættest.
         if (input.isEmpty())
