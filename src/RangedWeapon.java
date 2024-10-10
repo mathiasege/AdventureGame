@@ -23,7 +23,7 @@ public class RangedWeapon extends Weapon {
 
     @Override
     public String toString(){
-        return NAME + ": \n- Ammunition: " + ammo + ". Damage: " + damage + ".";
+        return super.getNAME() + ": \n- Ammunition: " + super.getAmmo() + ". Damage: " + super.getDamage() + ".";
     }
 
 }

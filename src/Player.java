@@ -194,7 +194,7 @@ public class Player {
     // Tilføjer liv.
     private int healthFromFood(Food temp) {
         // Add health
-        health += temp != null ? temp.healthPoints : 0;
+        health += temp != null ? temp.getHealthPoints() : 0;
 
         // Hvis liv bliver større end MAX_HEALTH. Sæt til MAX_HEALTH.
         int MAX_HEALTH = 50;
@@ -213,7 +213,7 @@ public class Player {
     }
 
     private String checkHealthStatus() {
-        if (getHealth() > 50) return "You're in condition to fight.";
+        if (getHealth() > 25) return "You're in condition to fight.";
         else return "Avoid fighting. Get something to eat.";
     }
 

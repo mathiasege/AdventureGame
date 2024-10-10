@@ -1,5 +1,5 @@
 public class Item {
-    protected final String NAME, DESCRIPTION;
+    private final String NAME, DESCRIPTION;
     private final double WEIGHT;
 
     public Item(String NAME, String DESCRIPTION, double WEIGHT){

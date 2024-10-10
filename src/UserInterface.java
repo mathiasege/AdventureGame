@@ -55,7 +55,7 @@ public class UserInterface {
                 case "health" -> System.out.println("Your health: " + adventur.getPlayerInfo());
                 case "eat" -> {
                     System.out.println("Are you sure you want to eat? It might be dangerous.");
-                    System.out.println("Max health = 100. Your health: " + adventur.getPlayerInfo());
+                    System.out.println("Max health = 50. Your health: " + adventur.getPlayerInfo());
                     System.out.println("Type y for yes and n for no.");
                     if (new Scanner(System.in).nextLine().equalsIgnoreCase("y"))
                         System.out.println(adventur.eat(secondWord));

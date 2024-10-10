@@ -1,8 +1,8 @@
 import java.util.Random;
 
 public abstract class Weapon extends Item {
-    protected final int damage;
-    protected int ammo;
+    private final int damage;
+    private int ammo;
 
     public Weapon(String name, String DESCRIPTION, int damage, int ammo){
         super(name, DESCRIPTION, new Random().nextDouble(10,20));
